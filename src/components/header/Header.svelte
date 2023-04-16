@@ -7,7 +7,7 @@
         'Item #5'
     ];
 
-    let thingy = process.env.ENV_TEXT;
+    let thingy = 'xd';
 </script>
 
 <nav class="navbar bg-purple-700">
