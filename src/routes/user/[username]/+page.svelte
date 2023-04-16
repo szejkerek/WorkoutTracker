@@ -1,10 +1,5 @@
 <script lang='ts'>
-    export let data: {
-        username: String,
-        gender: String,
-        age: Number,
-        country: String
-    };
+    export let data: UserInfo;
 </script>
 
 <div class='text-sm breadcrumbs w-1/2 self-center text-black mt-10'>
