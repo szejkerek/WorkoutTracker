@@ -7,12 +7,12 @@
         'Item #5'
     ];
 
-    let thingy = 'xd';
+    let thingy = 'Workout Tracker';
 </script>
 
 <nav class="navbar bg-purple-700">
     <div class="flex-1">
-        <a href="/" class="btn btn-ghost normal-case text-xl">{thingy} - ćwiczenia aplikacja przeglądarkowa z połączeniem do internetu</a>
+        <a href="/" class="btn btn-ghost normal-case text-xl">{thingy} - in the making</a>
     </div>
     <div class="flex-none">
         <ul class="menu menu-horizontal px-1">

@@ -1,13 +1,10 @@
 <script>
 	import '../app.css';
-	import Footer from '../components/footer/Footer.svelte';
 	import Header from '../components/header/Header.svelte';
 </script>
 
-<div class="flex flex-col h-screen">
+<div class="flex flex-col h-screen bg-gray-300">
     <Header />
 
     <slot />
-
-    <Footer />
 </div>
