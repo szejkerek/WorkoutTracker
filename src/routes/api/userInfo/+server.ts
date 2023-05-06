@@ -10,3 +10,16 @@ export const GET = ({ url }) => {
         country: 'Poland'
     });
 }
+
+export const POST = async ({ request }) => {
+    let user: {
+        username: string,
+        gender: string,
+        age: number,
+        country: string
+    } = await request.json();
+
+    console.log("Added user:");
+    console.table(user);
+    
+} 

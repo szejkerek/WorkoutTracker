@@ -21,7 +21,7 @@
 </div>
 <div class='w-full py-10'>
     <h1 class='my-10 text-6xl text-pink-500 text-center'>
-        Strona użytkownika '{data.username}' :3
+        Strona użytkownika '{data.username}'
     </h1>
     <h6 class='text-2xl text-pink-500 text-center'>
         Płeć: {data.gender}
