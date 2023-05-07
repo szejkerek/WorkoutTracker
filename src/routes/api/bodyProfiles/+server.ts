@@ -27,3 +27,13 @@ export const POST: RequestHandler = async ({ request }) => {
         data: results
     });
 };
+
+export const DELETE: RequestHandler = async (event) => {
+    const uid = await event.request.json();
+    const categoriesRef = firestore.collection("BodyProfiles").doc(uid);
+    await categoriesRef.delete();
+
+    return json({
+        code: 1,
+    });
+};

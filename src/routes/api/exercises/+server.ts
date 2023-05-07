@@ -2,25 +2,25 @@ import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 export const GET: RequestHandler = async () => {
-    const categoriesRef = firestore.collection("UserCategories");
-    const categoriesResults = await categoriesRef.get();
-    const categories: DatabaseReturnData[] = [];
+    const exercisesRef = firestore.collection("Exercises");
+    const exercisesResults = await exercisesRef.get();
+    const exercises: DatabaseReturnData[] = [];
 
-    categoriesResults.forEach(doc => categories.push({
+    exercisesResults.forEach(doc => exercises.push({
         id: doc.id,
         data: doc.data()
     }));
 
     return json({
         code: 1,
-        data: categories,
+        data: exercises,
     });
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const newCategory: UserCategory = await request.json();
-    const categoriesRef = firestore.collection("UserCategories");
-    const results = await categoriesRef.add(newCategory);
+    const newExercise: Exercise = await request.json();
+    const exercisesRef = firestore.collection("Exercises");
+    const results = await exercisesRef.add(newExercise);
 
     return json({
         code: 1,
@@ -31,8 +31,8 @@ export const POST: RequestHandler = async ({ request }) => {
 
 export const DELETE: RequestHandler = async (event) => {
     const uid = await event.request.json();
-    const categoriesRef = firestore.collection("UserCategories").doc(uid);
-    await categoriesRef.delete();
+    const exercisesRef = firestore.collection("Exercises").doc(uid);
+    await exercisesRef.delete();
 
     return json({
         code: 1,
@@ -41,11 +41,11 @@ export const DELETE: RequestHandler = async (event) => {
 
 export const PATCH: RequestHandler = async (event) => {
     const {uid} = await event.request.json();
-    const categoriesRef = firestore.collection("UserCategories").doc(uid);
+    const exercisesRef = firestore.collection("Exercises").doc(uid);
     
-    await categoriesRef.update({
-        name: "category asadfghjkl",
-        note: "eyah"
+    await exercisesRef.update({
+        displayName: "sample name",
+        note: "yeahnote"
     });
 
     return json({

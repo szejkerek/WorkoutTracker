@@ -16,3 +16,4 @@ export const GET: RequestHandler = async (event) => {
         data: category,
     });
 };
+

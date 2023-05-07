@@ -28,3 +28,28 @@ export const POST: RequestHandler = async ({ request }) => {
         data: results
     });
 };
+
+export const DELETE: RequestHandler = async (event) => {
+    const uid = await event.request.json();
+    const userRef = firestore.collection("Users").doc(uid);
+    await userRef.delete();
+
+    return json({
+        code: 1
+    });
+};
+
+export const PATCH: RequestHandler = async (event) => {
+    const {uid} = await event.request.json();
+    const userRef = firestore.collection("Users").doc(uid);
+    
+    await userRef.update({
+        username: "sadfghnm",
+        password: "paswwedo"
+    });
+
+    return json({
+        code: 1,
+        data: uid
+    });
+};
