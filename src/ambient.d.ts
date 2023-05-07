@@ -12,11 +12,16 @@ declare type TodoTask = {
     timestamp: Number
 }
 
+declare interface DatabaseReturnData {
+    id: string,
+    data: any
+}
+
 declare type StaticInfo = {
     age: Number,
-    gender: String,
+    gender: 'Male' | 'Female' | 'Other',
     displayName: String,
-    avatar: String,
+    avatarPath: String,
     heightInCM: Number
 }
 
@@ -24,15 +29,15 @@ declare type BodyProfile = {
     weightInKG: Number,
     bodyFatInPercentage: Number,
     muscleWeightInKG: Number,
-    dateOfMeasurement: Date
+    dateOfMeasurement: String,
+    userId: String
 }
 
 declare type User = {
     username: String,
     password: String,
     email: String,
-    info: StaticInfo,
-    bodyProfile: BodyProfile
+    staticInfo: StaticInfo
 }
 
 declare type UserCategory = {
