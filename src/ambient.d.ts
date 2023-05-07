@@ -37,7 +37,8 @@ declare type User = {
     username: String,
     password: String,
     email: String,
-    staticInfo: StaticInfo
+    staticInfo: StaticInfo,
+    followingIds: String[]
 }
 
 declare type UserCategory = {
