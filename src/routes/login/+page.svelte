@@ -44,7 +44,7 @@
 	// 	});
 	// };
 
-	import Logo from '$lib/static/Logo.png';
+	import Logo from '$lib/static/Logo.png'
 </script>
 
 <div class="text-red-500">
@@ -64,32 +64,26 @@
 	<br>
 	<form class="w-full max-w-sm flex flex-col justify-center">
 		<div class="flex justify-center mb-6">
-		  <div>
+		<div>
 			<input class="border-2 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white placeholder-gray-900" 
 			id="inline-full-name" 
 			type="text" 
 			placeholder="Username" 
 			style="background-color:#D8B4E2; border-color:#55286F; color:black; width:300px; height:45px">
-		  </div>
+		</div>
 		</div>
 		<div class="flex justify-center mb-6">
-		  <div>
+		<div>
 			<input class="border-2 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white placeholder-gray-900" 
 			id="inline-password" 
 			type="password" 
 			placeholder="Password"
 			style="background-color:#D8B4E2; border-color:#55286F; color:black; width:300px; height:45px">
-		  </div>
+		</div>
 		</div>
 		<div class="flex justify-center mb-6">
-		  <div>
-			<button class="shadow bg-purple-500 hover:bg-purple-400 
-			focus:shadow-outline focus:outline-none text-white 
-			font-bold py-2 px-4 rounded" 
-			type="button"
-			style="background-color: #55286F; height:45px">
-			  Login
-			</button>
+		<div>
+			<button class='btn w-40 btn-accent mt-4'>Login</button>
 		</div>
 	</form>
 </div>
