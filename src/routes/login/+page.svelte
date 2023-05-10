@@ -43,37 +43,53 @@
 	// 		}
 	// 	});
 	// };
+
+	import Logo from '$lib/static/Logo.png';
 </script>
 
 <div class="text-red-500">
 	{#if currUser !== undefined}
-		<p>{currUser.username}</p>
+		<!-- <p>{currUser.username}</p>
 		<p>{currUser.email}</p>
 		<p>{currUser.password}</p>
 		<p>{currUser.info.gender}</p>
-		<p>{currUser.bodyProfile.dateOfMeasurement}</p>
+		<p>{currUser.bodyProfile.dateOfMeasurement}</p> -->
 	{/if}
 </div>
 <div
-	class="w-full h-full py-40 text-center flex flex-col justify-around items-center bg-gray-300"
->
-	<div class="w-80 h-80 bg-gray-700 rounded-full" />
-	<form
-		on:submit|preventDefault={() => login()}
-		class="form-control w-1/4 items-center"
-	>
-		<input
-			bind:value={username}
-			type="text"
-			placeholder="Username"
-			class="w-full input input-bordered input-md"
-		/>
-		<input
-			bind:value={password}
-			type="password"
+	class="w-full h-full py-40 text-center flex flex-col justify-around items-center bg-gray-300">
+	<div>
+		<img src={Logo} alt="cipa" width=350px height=350px>
+	</div>
+	<br>
+	<form class="w-full max-w-sm flex flex-col justify-center">
+		<div class="flex justify-center mb-6">
+		  <div>
+			<input class="border-2 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white placeholder-gray-900" 
+			id="inline-full-name" 
+			type="text" 
+			placeholder="Username" 
+			style="background-color:#D8B4E2; border-color:#55286F; color:black; width:300px; height:45px">
+		  </div>
+		</div>
+		<div class="flex justify-center mb-6">
+		  <div>
+			<input class="border-2 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white placeholder-gray-900" 
+			id="inline-password" 
+			type="password" 
 			placeholder="Password"
-			class="w-full my-2 input input-bordered input-md"
-		/>
-		<button type="submit" class="btn btn-accent self-start">Login</button>
+			style="background-color:#D8B4E2; border-color:#55286F; color:black; width:300px; height:45px">
+		  </div>
+		</div>
+		<div class="flex justify-center mb-6">
+		  <div>
+			<button class="shadow bg-purple-500 hover:bg-purple-400 
+			focus:shadow-outline focus:outline-none text-white 
+			font-bold py-2 px-4 rounded" 
+			type="button"
+			style="background-color: #55286F; height:45px">
+			  Login
+			</button>
+		</div>
 	</form>
 </div>
