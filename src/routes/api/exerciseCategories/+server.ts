@@ -5,20 +5,37 @@ export const GET: RequestHandler = async () => {
     const categoriesRef = firestore.collection("UserCategories");
     const categoriesResults = await categoriesRef.get();
     const categories: DatabaseReturnData[] = [];
-
+    
     categoriesResults.forEach(doc => categories.push({
         id: doc.id,
         data: doc.data()
     }));
 
+    const mappedCategories = categories.map(async (cat): Promise<UserCategory> => {
+        const userRef = firestore.collection("Users").doc(cat.data.userId);
+        const user: any = (await userRef.get()).data();
+
+        return {
+            name: cat.data.name,
+            note: cat.data.note,
+            owner: user
+        };
+    });
+
+    let categs: UserCategory[] = [];
+
+    await Promise.all(mappedCategories).then(res => {
+        categs = res;
+    });
+
     return json({
         code: 1,
-        data: categories,
+        data: categs
     });
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const newCategory: UserCategory = await request.json();
+    const newCategory: APIUserCategory = await request.json();
     const categoriesRef = firestore.collection("UserCategories");
     const results = await categoriesRef.add(newCategory);
 

@@ -1,7 +1,7 @@
 import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async (event) => {
     const trainingPlansRef = firestore.collection("TrainingPlans");
     const trainingPlansResults = await trainingPlansRef.get();
     const trainingPlans: DatabaseReturnData[] = [];
@@ -11,9 +11,49 @@ export const GET: RequestHandler = async () => {
         data: doc.data()
     }));
 
+    const mappedPlans = trainingPlans.map(async (plan): Promise<TrainingPlan> => {
+        const userResp = await event.fetch(`/api/users/${plan.data.userId}`, {
+            method: 'GET'
+        });
+        const user: any = await userResp.json();
+        const exercises = plan.data.exerciseIds.map(async (exerId): Promise<Exercise> => {
+            const exerResp = await event.fetch(`/api/exercises/${exerId}`, {
+                method: 'GET'
+            });
+            const exer: any = await exerResp.json();
+
+            return {
+                category: exer.data.category,
+                displayName: exer.data.displayName,
+                exerciseType: exer.data.exerciseType,
+                note: exer.data.note
+            };
+        });
+        
+        let exers: Exercise[] = [];
+
+        await Promise.all(exercises).then(res => {
+            exers = res;
+        });
+
+        console.log(exers);
+
+        return {
+            author: user,
+            exercises: exers,
+            name: plan.data.name
+        };
+    });
+
+    let plans: TrainingPlan[] = [];
+
+    await Promise.all(mappedPlans).then(res => {
+        plans = res;
+    });
+
     return json({
         code: 1,
-        data: trainingPlans,
+        data: plans,
     });
 };
 

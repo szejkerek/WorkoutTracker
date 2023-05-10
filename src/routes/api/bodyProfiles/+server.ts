@@ -10,15 +10,34 @@ export const GET: RequestHandler = async () => {
         id: doc.id,
         data: doc.data()
     }));
+    
+    const mappedProfiles = profiles.map(async (prof): Promise<BodyProfile> => {
+        const userRef = firestore.collection("Users").doc(prof.data.userId);
+        const user: any = (await userRef.get()).data();
+
+        return {
+            weightInKG: prof.data.weightInKG,
+            bodyFatInPercentage: prof.data.bodyFatInPercentage,
+            muscleWeightInKG: prof.data.muscleWeightInKG,
+            dateOfMeasurement: prof.data.dateOfMeasurement,
+            owner: user
+        };
+    });
+
+    let profes: BodyProfile[] = [];
+
+    await Promise.all(mappedProfiles).then(res => {
+        profes = res;
+    });
 
     return json({
         code: 1,
-        data: profiles,
+        data: profes,
     });
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const newProfile: UserCategory = await request.json();
+    const newProfile: BodyProfile = await request.json();
     const profilesRef = firestore.collection("BodyProfiles");
     const results = await profilesRef.add(newProfile);
 

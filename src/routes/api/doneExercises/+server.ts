@@ -11,9 +11,33 @@ export const GET: RequestHandler = async () => {
         data: doc.data()
     }));
 
+    const mappedExercises = doneExercises.map(async (exer): Promise<DoneExercise> => {
+        const userRef = firestore.collection("Users").doc(exer.data.userId);
+        const user: any = (await userRef.get()).data();
+
+        const exerciseRef = firestore.collection("Exercises").doc(exer.data.exerciseId);
+        const exercise: any = (await exerciseRef.get()).data();
+
+        return {
+            date: exer.data.date,
+            distanceInMeters: exer.data.distanceInMeters,
+            exercise: exercise,
+            owner: user,
+            repetitions: exer.data.repetitions,
+            timeInSeconds: exer.data.timeInSeconds,
+            weightInKG: exer.data.weightInKG
+        };
+    });
+
+    let danes: DoneExercise[] = [];
+
+    await Promise.all(mappedExercises).then(res => {
+        danes = res;
+    });
+
     return json({
         code: 1,
-        data: doneExercises,
+        data: danes,
     });
 };
 

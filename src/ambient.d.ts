@@ -30,7 +30,7 @@ declare type BodyProfile = {
     bodyFatInPercentage: Number,
     muscleWeightInKG: Number,
     dateOfMeasurement: String,
-    userId: String
+    owner: User
 }
 
 declare type User = {
@@ -43,6 +43,6 @@ declare type User = {
 
 declare type UserCategory = {
     name: String,
-    userId: String,
+    owner: User,
     note: String
 }

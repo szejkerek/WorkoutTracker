@@ -16,21 +16,21 @@ declare type UserCategory = {
 }
 
 declare type Exercise = {
-    categoryId: String,
+    category: UserCategory,
     displayName: String,
     exerciseType: Number,
     note: String
 }
 
 declare type TrainingPlan = {
-    userId: String,
+    author: User,
     name: String,
-    exerciseIds: String[]
+    exercises: Exercise[]
 }
 
 declare type DoneExercise = {
-    userId: String,
-    exerciseId: String,
+    owner: User,
+    exercise: Exercise,
     date: String,
     distanceInMeters: Number,
     timeInSeconds: Number,
@@ -39,7 +39,7 @@ declare type DoneExercise = {
 }
 
 declare type Post = {
-    authorId: String,
+    author: User,
     content: String,
     date: String,
     comments: PostComment[],
@@ -47,7 +47,7 @@ declare type Post = {
 }
 
 declare type PostComment = {
-    authorId: String,
+    author: User,
     content: String, 
     date: String
 }

@@ -1,7 +1,7 @@
 import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async (event) => {
     const postsRef = firestore.collection("Posts");
     const postsResults = await postsRef.get();
     const posts: DatabaseReturnData[] = [];
@@ -11,9 +11,48 @@ export const GET: RequestHandler = async () => {
         data: doc.data()
     }));
 
+    const mappedPosts = posts.map(async (post): Promise<Post> => {
+        const authorRef = await event.fetch(`/api/users/${post.data.authorId}`, {
+            method: 'GET'
+        });
+        const author = await authorRef.json();
+        const comments = post.data.comments;
+
+        const mappedComments = comments.map(async (comment): Promise<PostComment> => {
+            const commentAuthorRef = firestore.collection("Users").doc(comment.authorId);
+            const commentAuthor: any = (await commentAuthorRef.get()).data();
+
+            return {
+                author: commentAuthor,
+                content: comment.content,
+                date: comment.date
+            };
+        });
+        
+        let comets: PostComment[] = [];
+
+        await Promise.all(mappedComments).then(res => {
+            comets = res;
+        });
+        
+        return {
+            author: author.data,
+            content: post.data.content,
+            date: post.data.date,
+            likedByIds: post.data.likedByIds,
+            comments: comets
+        };
+    });
+
+    let pots: Post[] = [];
+
+    await Promise.all(mappedPosts).then(res => {
+        pots = res;
+    });
+
     return json({
         code: 1,
-        data: posts,
+        data: pots,
     });
 };
 
