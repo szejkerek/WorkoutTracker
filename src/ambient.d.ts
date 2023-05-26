@@ -26,6 +26,7 @@ declare type StaticInfo = {
 }
 
 declare type BodyProfile = {
+    id: String,
     weightInKG: Number,
     bodyFatInPercentage: Number,
     muscleWeightInKG: Number,
@@ -34,6 +35,7 @@ declare type BodyProfile = {
 }
 
 declare type User = {
+    id: String,
     username: String,
     password: String,
     email: String,
@@ -42,6 +44,7 @@ declare type User = {
 }
 
 declare type UserCategory = {
+    id: String,
     name: String,
     owner: User,
     note: String

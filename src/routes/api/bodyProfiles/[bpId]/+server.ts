@@ -10,6 +10,7 @@ export const GET: RequestHandler = async (event) => {
     const user: any = await userResp.json();
 
     const finalProfile: BodyProfile = {
+        id: profile.id,
         bodyFatInPercentage: profile.bodyFatInPercentage,
         dateOfMeasurement: profile.dateOfMeasurement,
         muscleWeightInKG: profile.muscleWeightInKG,

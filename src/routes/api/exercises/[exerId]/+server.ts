@@ -9,6 +9,7 @@ export const GET: RequestHandler = async (event) => {
     });
     const category: any = await categoryResp.json();
     const exerciseFinal: Exercise = {
+        id: exerciseRef.id,
         displayName: exercise.displayName,
         note: exercise.note,
         exerciseType: exercise.exerciseType,

@@ -8,6 +8,7 @@ export const GET: RequestHandler = async (event) => {
     const user: any = (await userRef.get()).data();
     
     const categ: UserCategory = {
+        id: categoryRef.id,
         name: category.name,
         note: category.note,
         owner: user

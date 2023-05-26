@@ -36,6 +36,7 @@ export const GET: RequestHandler = async (event) => {
         });
         
         return {
+            id: post.id,
             author: author.data,
             content: post.data.content,
             date: post.data.date,

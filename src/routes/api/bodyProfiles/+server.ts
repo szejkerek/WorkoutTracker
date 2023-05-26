@@ -16,6 +16,7 @@ export const GET: RequestHandler = async () => {
         const user: any = (await userRef.get()).data();
 
         return {
+            id: prof.id,
             weightInKG: prof.data.weightInKG,
             bodyFatInPercentage: prof.data.bodyFatInPercentage,
             muscleWeightInKG: prof.data.muscleWeightInKG,

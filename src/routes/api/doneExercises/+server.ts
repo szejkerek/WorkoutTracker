@@ -19,6 +19,7 @@ export const GET: RequestHandler = async () => {
         const exercise: any = (await exerciseRef.get()).data();
 
         return {
+            id: exerciseRef.id,
             date: exer.data.date,
             distanceInMeters: exer.data.distanceInMeters,
             exercise: exercise,

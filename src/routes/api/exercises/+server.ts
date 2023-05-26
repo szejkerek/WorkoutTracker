@@ -18,6 +18,7 @@ export const GET: RequestHandler = async (event) => {
         const category = await categoryResp.json();
         
         return {
+            id: cat.id,
             category: category.data,
             displayName: cat.data.displayName,
             exerciseType: cat.data.exerciseType,

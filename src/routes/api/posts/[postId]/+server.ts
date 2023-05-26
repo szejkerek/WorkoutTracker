@@ -30,6 +30,7 @@ export const GET: RequestHandler = async (event) => {
     });
 
     const finalPost: Post = {
+        id: postRef.id,
         author: author,
         comments: coms,
         content: post.content,

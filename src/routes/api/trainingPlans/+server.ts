@@ -23,6 +23,7 @@ export const GET: RequestHandler = async (event) => {
             const exer: any = await exerResp.json();
 
             return {
+                id: exer.id,
                 category: exer.data.category,
                 displayName: exer.data.displayName,
                 exerciseType: exer.data.exerciseType,
@@ -39,6 +40,7 @@ export const GET: RequestHandler = async (event) => {
         console.log(exers);
 
         return {
+            id: plan.id,
             author: user,
             exercises: exers,
             name: plan.data.name

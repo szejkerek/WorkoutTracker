@@ -17,6 +17,7 @@ export const GET: RequestHandler = async (event) => {
         const exercise = await exerciseResp.json();
 
         return {
+            id: exercise.id,
             category: exercise.data.category,
             displayName: exercise.data.displayName,
             exerciseType: exercise.data.exerciseType,
@@ -31,6 +32,7 @@ export const GET: RequestHandler = async (event) => {
     });
 
     const finalPlan: TrainingPlan = {
+        id: trainingPlanRef.id,
         author: author,
         exercises: exes,
         name: trainingPlan.name

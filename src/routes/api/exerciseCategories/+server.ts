@@ -16,6 +16,7 @@ export const GET: RequestHandler = async () => {
         const user: any = (await userRef.get()).data();
 
         return {
+            id: cat.id,
             name: cat.data.name,
             note: cat.data.note,
             owner: user
