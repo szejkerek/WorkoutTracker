@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex flex-col justify-center items-center py-5">
+		<div class="w-1/2 flex flex-col justify-center items-center py-5">
 			{#each posts as post}
 				<PostComp postData={post} />
 			{/each}
