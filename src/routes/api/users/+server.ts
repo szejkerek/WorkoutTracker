@@ -21,7 +21,14 @@ export const GET: RequestHandler = async () => {
 export const POST: RequestHandler = async ({ request }) => {
     const user: User = await request.json();
     const usersRef = firestore.collection("Users");
-    const results = await usersRef.add(user);
+    const newUser = {
+        username: user.username,
+        password: user.password,
+        email: user.email,
+        staticInfo: user.staticInfo,
+        followingIds: user.followingIds
+    };
+    const results = await usersRef.add(newUser);
 
     return json({
         code: 1,
