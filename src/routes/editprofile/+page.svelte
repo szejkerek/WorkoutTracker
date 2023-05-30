@@ -30,36 +30,36 @@
 <div class="w-full h-full py-40 text-center bg-gray-300 flex justify-center items-center">
   <div class="frame w-1/4">
     <div class="flex flex-col justify-center items-center">
-      <p class="text-black font-black text-4xl mb-8">
+      <p class="font-black text-4xl mb-8">
         Edit profile
       </p>
       <div class="mb-4">
         <label>
-          <p class="text-black">Display Name:</p>
+          <p>Display Name:</p>
           <input bind:value={user.staticInfo.displayName} type="text" placeholder="Display Name" class="input" on:input={() => changingField = 'display name'} />
         </label>
       </div>
       <div class="mb-4">
         <label>
-          <p class="text-black">Username:</p>
+          <p>Username:</p>
           <input bind:value={user.username} type="text" placeholder="Username" class="input" on:input={() => changingField = 'username'} />
         </label>
       </div>   
       <div class="mb-4">
         <label>
-          <p class="text-black">Age:</p>
+          <p>Age:</p>
           <input bind:value={user.staticInfo.age} type="number" placeholder="Age" class="input" on:input={() => changingField = 'age'} />
         </label>
       </div>
       <div class="mb-4">
         <label>
-          <p class="text-black">Height (cm):</p>
+          <p>Height (cm):</p>
           <input bind:value={user.staticInfo.heightInCM} type="number" placeholder="Height (cm)" class="input" on:input={() => changingField = 'height'} />
         </label>
       </div>
       <div class="mb-4">
         <label>
-          <p class="text-black">Gender:</p>
+          <p>Gender:</p>
           <select bind:value={user.staticInfo.gender} class="input" on:change={() => changingField = 'gender'}>
             {#each genderOptions as option}
               <option value={option}>{option}</option>
@@ -107,6 +107,10 @@
     background-color: #c6c0c8;
     padding: 20px;
     border-radius: 10px; /*rafał*/
+  }
+
+  p {
+    @apply text-black;
   }
 
 </style>
