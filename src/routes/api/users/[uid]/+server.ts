@@ -4,10 +4,9 @@ import { json, type RequestHandler } from "@sveltejs/kit";
 export const GET: RequestHandler = async (event) => {
     const userRef = firestore.collection("Users").doc(event.params.uid);
     const userResults = await userRef.get();
-    const user: DatabaseReturnData = {
-        id: userResults.id,
-        data: userResults.data()
-    };
+    const user = {...userResults.data()};
+
+    user.id = userResults.id;
 
     return json({
         code: 1,
