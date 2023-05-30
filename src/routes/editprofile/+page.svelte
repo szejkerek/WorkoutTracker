@@ -78,22 +78,23 @@
 
 <style>
   .btn {
-    @apply font-bold py-2 px-4 rounded;
+    @apply shadow-lg font-bold py-2 px-4 rounded;
+    @apply bg-gray-500 text-white;
+  }
+  .btn:hover {
+    @apply bg-gray-700;
   }
   .btn-blue {
     @apply bg-blue-500 text-white;
+    background-color: #55286F ;
   }
   .btn-blue:hover {
-    @apply bg-blue-700;
+    background-color: #391e46;
   }
-  .btn-secondary {
-    @apply bg-gray-400 text-white;
-  }
-  .btn-secondary:hover {
-    @apply bg-gray-600;
-  }
+
   .input {
-    @apply px-4 py-2 mt-2 rounded border-gray-400 border;
+    @apply px-4 py-2 mt-2 rounded-md border-gray-400  shadow-lg;
     width: 100%; /* Dodajemy tę linijkę, aby elementy input miały tę samą szerokość */
+    
   }
 </style>
