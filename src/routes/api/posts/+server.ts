@@ -22,6 +22,8 @@ export const GET: RequestHandler = async (event) => {
             const commentAuthorRef = firestore.collection("Users").doc(comment.authorId);
             const commentAuthor: any = (await commentAuthorRef.get()).data();
 
+            commentAuthor.id = commentAuthorRef.id;
+
             return {
                 author: commentAuthor,
                 content: comment.content,
