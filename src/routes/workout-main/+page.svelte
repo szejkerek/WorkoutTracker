@@ -65,6 +65,17 @@
         ~stary ronniego colemana
     </p>
    </div>
+   <div class="flex justify-between w-96 items-center flex-row my-5 bg-gray-400 rounded-md text-black">
+    <button>
+      xd
+      </button>
+       <p>?????????</p>
+       <button>
+        Next day
+        </button>
+    
+
+   </div>
    <div class="flex justify-between items-center flex-row">
     <div class="flex flex-col justify-center mt-6 px-10">
         <button on:click={startNewWorkout} class="btn mb-5">
