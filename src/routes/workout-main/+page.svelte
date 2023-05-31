@@ -59,7 +59,7 @@
     <h1>Hello, {user.username}!</h1>
    </div>
 
-   <div class="bg-gray-400 rounded-md p-4 w-60 text-black">
+   <div class="bg-eminence rounded-md p-4 w-60 text-black">
     <p class="font-normal text-xl italic mb-2">
         "jakis motywujacy cytat o pompowaniu bica i zakładaniu żeliwa na sztane"
     </p>
