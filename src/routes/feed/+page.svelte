@@ -84,7 +84,7 @@
 				name="newPost"
 				rows="4"
 				class="p-3 mb-5 rounded-md w-full bg-gray-200 border border-gray-600 shadow-md text-gray-700"
-				placeholder="How did your training went?"
+				placeholder="How did your training go?"
 			/>
 			<button type="submit" class="btn btn-secondary px-10">Post</button>
 		</form>
