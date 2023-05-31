@@ -116,7 +116,7 @@
       @apply text-black text-lg;
     }
     .btn:hover {
-      @apply border-2 bg-gray-400 italic;
+      @apply border-2 bg-gray-400;
     }
     ul {
       @apply list-none;
