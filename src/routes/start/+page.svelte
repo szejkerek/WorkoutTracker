@@ -15,8 +15,8 @@
     }
 </script>
 
-<div class='w-full h-full py-56 text-center flex flex-col justify-around items-center bg-gray-300'>
-    <div>
+<div class='flex flex-col items-center min-h-screen p-10 w-full mx-auto'>
+    <div class="pt-16">
         <img src={Logo} alt="cipa" width=350px height=350px>
     </div>
     <button on:click={() => loginRedirect()} class='btn btn-blue w-40 btn-accent mt-4'>Login</button>
