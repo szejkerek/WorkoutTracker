@@ -8,10 +8,7 @@
 </script>
 
 <div class="flex flex-row justify-center min-h-screen p-10">
-	<div class="w-1/6 p-3 border-r-2 border-purple-300">
-		[[MENU PLACEHOLDER]]
-	</div>
-	<div class="w-2/3 p-3 flex flex-col items-center">
+	<div class="w-full p-3 flex flex-col items-center">
 		<div class="w-full flex flex-row border-b-2 border-purple-300 pb-10">
 			<img
 				src={ProfileDefault}
@@ -45,13 +42,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-1/2 flex flex-col justify-center items-center py-5">
+		<div class="w-full flex flex-col justify-center items-center py-5 px-24">
 			{#each posts as post}
 				<PostComp postData={post} />
 			{/each}
 		</div>
-	</div>
-	<div class="w-1/6 p-3 border-l-2 border-purple-300">
-		[[BLANK PLACEHOLDER]]
 	</div>
 </div>
