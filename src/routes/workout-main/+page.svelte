@@ -66,10 +66,14 @@
     <p class="font-bold text-2xl">
         ~stary ronniego colemana
     </p>
-    
-
-
    </div>
+
+   <div class="flex justify-between items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
+    <button>previous</button>
+    <p>31.05.2023</p>
+    <button>next</button>
+    </div>
+
    <div class="flex flex-row items-center">
         <div class="flex flex-col justify-center mt-6 px-10 w-2/3">
             <div class="flex flex-row items-center w-full mb-5">
