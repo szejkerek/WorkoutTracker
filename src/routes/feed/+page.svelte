@@ -69,13 +69,13 @@
 </script>
 
 <div class="flex flex-col items-center min-h-screen p-10 w-full mx-auto">
-	<div class="flex flex-row justify-between w-1/4 mb-10">
+	<div class="flex flex-row justify-between w-1/2 mb-10">
 		<h1 class="text-5xl text-black flex flex-col justify-center">
 			Hello, Rafał!
 		</h1>
 		<img src={Dumbbell} alt="dumbbell-icon" width="100" height="100" />
 	</div>
-	<div class="w-1/4">
+	<div class="w-1/2">
 		<form
 			on:submit|preventDefault={() => newPost()}
 			class="flex flex-col w-full mt-5 items-end"
@@ -89,7 +89,7 @@
 			<button type="submit" class="btn btn-secondary px-10">Post</button>
 		</form>
 	</div>
-	<div class="w-1/2">
+	<div class="w-full px-48">
 		{#each posts.slice(0, postsNumber) as post}
 			<PostComp postData={post} />
 		{/each}
