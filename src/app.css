@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-dark-purple {
+    background-color: #210B2C;
+}
+
+.bg-eminence {
+    background-color: #55286F;
+}
+
+.bg-wisteria {
+    background-color: #BC96E6;
+}
+
+.bg-pink-lavender {
+    background-color: #D8B4E2;
+}
+
+.bg-sky-magenta {
+    background-color: #AE759F;
+}
