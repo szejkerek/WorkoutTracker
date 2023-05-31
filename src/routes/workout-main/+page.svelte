@@ -59,17 +59,21 @@
     <h1>Hello, {user.username}!</h1>
    </div>
 
-   <div class="bg-gray-400 rounded-md p-4 w-60 text-black">
+   <div class="bg-eminence rounded-md p-4 w-60 text-black">
     <p class="font-normal text-xl italic mb-2">
         "jakis motywujacy cytat o pompowaniu bica i zakładaniu żeliwa na sztane"
     </p>
     <p class="font-bold text-2xl">
         ~stary ronniego colemana
     </p>
-    
-
-
    </div>
+
+   <div class="flex justify-between items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
+    <button>previous</button>
+    <p>31.05.2023</p>
+    <button>next</button>
+    </div>
+
    <div class="flex flex-row items-center">
         <div class="flex flex-col justify-center mt-6 px-10 w-2/3">
             <div class="flex flex-row items-center w-full mb-5">
