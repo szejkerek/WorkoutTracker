@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import PostCommentComp from './PostCommentComp.svelte';
 
 	export let postData: Post;
@@ -11,7 +12,7 @@
 		commentsNumber += 3;
 	};
 
-	const postComment = (e) => {
+	const postComment = (e: any) => {
 		const formData = new FormData(e.target);
 
 		console.log(formData.get('commentBody'));
@@ -29,7 +30,9 @@
 		<div
 			class="font-semibold text-xl text-black flex flex-row justify-between"
 		>
-			<span>{postData.author.staticInfo.displayName}</span>
+			<button on:click={() => goto(`/user/${postData.author.id}`)}>
+				{postData.author.staticInfo.displayName}
+			</button>
 		</div>
 		<div class="text-xl text-black">
 			{postData.content}
