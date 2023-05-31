@@ -8,7 +8,7 @@
     
 </script>
 
-<button on:click={() => goto(route)} class="text-xl text-pink-500 font-semibold my-5 flex flex-row items-center">
+<button on:click={() => goto(route)} class="text-xl text-black my-5 flex flex-row items-center font-light">
     <img src={icon} alt="xd" class="mr-5 w-10 h-10">
     {name}
 </button>
