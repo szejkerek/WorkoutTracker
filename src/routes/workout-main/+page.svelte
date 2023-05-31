@@ -1,6 +1,8 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
+    import icon_calendar from "$lib/static/icons/icon-calendar.png";
+    import icon_plus from "$lib/static/icons/icon-plus.png";
   
     let user: User = {
       username: 'nnnnikodem',
@@ -64,50 +66,48 @@
     <p class="font-bold text-2xl">
         ~stary ronniego colemana
     </p>
-   </div>
-   <div class="flex justify-between w-96 items-center flex-row my-5 bg-gray-400 rounded-md text-black">
-    <button>
-      xd
-      </button>
-       <p>?????????</p>
-       <button>
-        Next day
-        </button>
     
 
-   </div>
-   <div class="flex justify-between items-center flex-row">
-    <div class="flex flex-col justify-center mt-6 px-10">
-        <button on:click={startNewWorkout} class="btn mb-5">
-        Start new workout
-        </button>
-        <button on:click={copyPreviousWorkout} class="btn">
-        Copy previous workout
-        </button>
-    </div>
 
-   {#if previousWorkout.length == 0}
-   <div class="flex flex-col justify-center text-black mt-10 px-10 font-bold text-3xl">
-    <h2 class="mb-2">Previous workout</h2>
-    <div class="rounded-md bg-gray-400 font-light text-base py-2 m-2">
-        <h3>Dumbbell Curl</h3>
-        <ul>
-            <li>14 kg | 15 reps</li>
-            <li>14 kg | 15 reps</li>
-            <li>14 kg | 15 reps</li>
-            <li>14 kg | 15 reps</li>
-        </ul>
-    </div>
-    <div class="rounded-md bg-gray-400 font-light text-base py-2 m-2">
-        <h3>Flat Barbell Bench Press</h3>
-        <ul>
-            <li>90 kg | 8 reps</li>
-            <li>90 kg | 8 reps</li>
-            <li>90 kg | 8 reps</li>
-            <li>90 kg | 8 reps</li>
-        </ul>
-    </div>
-    <div class="rounded-md bg-gray-400 font-light text-base py-2 m-2">
+   </div>
+   <div class="flex flex-row items-center">
+        <div class="flex flex-col justify-center mt-6 px-10 w-2/3">
+            <div class="flex flex-row items-center w-full mb-5">
+                <img src={icon_plus} alt="Start new workout plus icon" class="w-10 h-10 mr-5">
+                <button on:click={startNewWorkout} class="butn hover:bg-gray-400">
+                Start new workout
+                </button>
+            </div>
+            <div class="flex flex-row items-center w-full">
+                <img src={icon_calendar} alt="Copy previous workout calendar icon" class="w-10 h-10 mr-5">
+                <button on:click={copyPreviousWorkout} class="butn hover:bg-gray-400">
+                Copy previous workout
+                </button>
+            </div>
+        </div> 
+
+    {#if previousWorkout.length == 0}
+    <div class="flex flex-col justify-center text-black mt-10 px-10 font-bold text-3xl">
+        <h2 class="mb-2">Previous workout</h2>
+        <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
+            <h3>Dumbbell Curl</h3>
+            <ul>
+                <li>14 kg | 15 reps</li>
+                <li>14 kg | 15 reps</li>
+                <li>14 kg | 15 reps</li>
+                <li>14 kg | 15 reps</li>
+            </ul>
+        </div>
+        <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
+            <h3>Flat Barbell Bench Press</h3>
+            <ul>
+                <li>90 kg | 8 reps</li>
+                <li>90 kg | 8 reps</li>
+                <li>90 kg | 8 reps</li>
+                <li>90 kg | 8 reps</li>
+            </ul>
+        </div>
+        <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
         <h3>Lat Pulldown</h3>
         <ul>
             <li>55 kg | 10 reps</li>
@@ -122,12 +122,9 @@
 </div>
   
   <style>
-    .btn {
-      @apply border-0 font-semibold py-2 px-4 rounded bg-gray-300;
+    .butn {
+      @apply font-semibold py-2 px-4 rounded bg-gray-300;
       @apply text-black text-lg;
-    }
-    .btn:hover {
-      @apply border-2 bg-gray-400;
     }
     ul {
       @apply list-none;
