@@ -59,16 +59,16 @@
     <h1>Hello, {user.username}!</h1>
    </div>
 
-   <div class="bg-eminence rounded-md p-4 w-60 text-black">
+   <div class="bg-eminence rounded-md p-4 w-60 text-white">
     <p class="font-normal text-xl italic mb-2">
-        "jakis motywujacy cytat o pompowaniu bica i zakładaniu żeliwa na sztane"
+        "motivational quote"
     </p>
     <p class="font-bold text-2xl">
-        ~stary ronniego colemana
+        ~gym bro
     </p>
    </div>
 
-   <div class="flex justify-between items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
+   <div class="flex justify-around items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
     <button>previous</button>
     <p>31.05.2023</p>
     <button>next</button>
@@ -99,7 +99,6 @@
                 <li>14 kg | 15 reps</li>
                 <li>14 kg | 15 reps</li>
                 <li>14 kg | 15 reps</li>
-                <li>14 kg | 15 reps</li>
             </ul>
         </div>
         <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
@@ -108,18 +107,16 @@
                 <li>90 kg | 8 reps</li>
                 <li>90 kg | 8 reps</li>
                 <li>90 kg | 8 reps</li>
-                <li>90 kg | 8 reps</li>
             </ul>
         </div>
         <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
-        <h3>Lat Pulldown</h3>
-        <ul>
-            <li>55 kg | 10 reps</li>
-            <li>55 kg | 10 reps</li>
-            <li>55 kg | 10 reps</li>
-            <li>55 kg | 10 reps</li>
-        </ul>
-    </div>
+            <h3>Lat Pulldown</h3>
+            <ul>
+                <li>55 kg | 10 reps</li>
+                <li>55 kg | 10 reps</li>
+                <li>55 kg | 10 reps</li>
+            </ul>
+        </div>
    </div>
    {/if}
   </div>
