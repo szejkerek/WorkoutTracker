@@ -57,7 +57,7 @@
         {#if addedExercise}
           <div class="my-2">
             <span class="font-black text-black">{addedExercise.exercise}</span>
-            <span>{addedExercise.series} series, {addedExercise.reps} reps</span>
+            <span class="text-black">{addedExercise.series} series, {addedExercise.reps} reps</span>
           </div>
         {/if}
         {#each posts as post}
