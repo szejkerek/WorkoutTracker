@@ -1,21 +1,35 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import PostCommentComp from './PostCommentComp.svelte';
+	import { userSessionData } from '../../stores/userSession';
 
 	export let postData: Post;
 	let logged: boolean = true;
-
-	let comments: PostComment[] = postData.comments;
 	let commentsNumber: number = 3;
+	let commentFormInput: String;
 
 	const showMoreComments = () => {
 		commentsNumber += 3;
 	};
 
-	const postComment = (e: any) => {
-		const formData = new FormData(e.target);
+	const postComment = async (e: any) => {
+		const today = new Date();
+		const newComment: PostComment = {
+			author: $userSessionData as User,
+			date: `${today.getDate()}/${
+				today.getMonth() + 1
+			}/${today.getFullYear()}`,
+			content: commentFormInput
+		};
 
-		console.log(formData.get('commentBody'));
+		postData.comments = [...postData.comments, newComment];
+
+		await fetch(`/api/posts/${postData.id}`, {
+			method: 'PATCH',
+			body: JSON.stringify(postData)
+		});
+
+		commentFormInput = '';
 	};
 </script>
 
@@ -39,12 +53,12 @@
 		</div>
 	</div>
 	<div class="mt-5 px-2">
-		{#each comments.slice(0, commentsNumber) as comment}
+		{#each postData.comments.slice(0, commentsNumber) as comment}
 			<PostCommentComp commentData={comment} />
 		{/each}
 	</div>
 	<div class="flex flex-row w-1/2">
-		{#if commentsNumber < comments.length}
+		{#if commentsNumber < postData.comments.length}
 			<button
 				on:click={() => showMoreComments()}
 				class="btn btn-secondary w-1/2">Load more</button
@@ -57,6 +71,7 @@
 			class="flex flex-row w-full mt-5"
 		>
 			<textarea
+				bind:value={commentFormInput}
 				name="commentBody"
 				rows="1"
 				placeholder="Add a new comment"
