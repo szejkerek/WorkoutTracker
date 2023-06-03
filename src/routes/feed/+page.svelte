@@ -27,20 +27,30 @@
 	let postFormInput: String;
 
 	const newPost = async () => {
+		if (postFormInput.length === 0) {
+			return;
+		}
+
 		const today = new Date();
 		const post: Post = {
 			author: $userSessionData as User,
-			date: `${today.getDate()}/${today.getDay()}/${today.getFullYear()}`,
+			date: `${today.getDate()}/${
+				today.getMonth() + 1
+			}/${today.getFullYear()}`,
 			content: postFormInput,
 			comments: [],
 			likedByIds: [],
 			id: ''
 		};
 
-		await fetch('/api/posts', {
+		const response = await fetch('/api/posts', {
 			method: 'POST',
 			body: JSON.stringify(post)
 		});
+		const result = await response.json();
+
+		posts = [result.data, ...posts];
+		postFormInput = '';
 	};
 </script>
 
