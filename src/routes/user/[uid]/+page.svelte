@@ -42,7 +42,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex flex-col justify-center items-center py-5 px-24">
+		<div
+			class="w-full flex flex-col justify-center items-center py-5 px-24"
+		>
 			{#each posts as post}
 				<PostComp postData={post} />
 			{/each}
