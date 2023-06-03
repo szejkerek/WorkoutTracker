@@ -62,7 +62,14 @@ export const GET: RequestHandler = async (event) => {
 export const POST: RequestHandler = async ({ request }) => {
     const newPost: Post = await request.json();
     const postsRef = firestore.collection("Posts");
-    const postsResults = await postsRef.add(newPost);
+    const strippedPost = {
+        authorId: newPost.author.id,
+        comments: newPost.comments,
+        content: newPost.content,
+        date: newPost.date,
+        likedByIds: newPost.likedByIds
+    };
+    const postsResults = await postsRef.add(strippedPost);
 
     return json({
         code: 1,
