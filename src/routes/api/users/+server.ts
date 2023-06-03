@@ -5,12 +5,20 @@ import { json } from "@sveltejs/kit";
 export const GET: RequestHandler = async () => {
     const usersRef = firestore.collection("Users");
     const userResults = await usersRef.get();
-    const users: DatabaseReturnData[] = [];
+    const users: User[] = [];
 
-    userResults.forEach(doc => users.push({
-        id: doc.id,
-        data: doc.data()
-    }));
+    userResults.forEach(doc => {
+        const current: any = doc.data();
+
+        users.push({
+            id: doc.id,
+            username: current.username,
+            email: current.email,
+            followingIds: current.followingIds,
+            password: current.password,
+            staticInfo: current.staticInfo
+        });
+    });
 
     return json({
         code: 1,
