@@ -1,3 +1,3 @@
-export const load = () => {
-    console.log('client comm');
+export const load = (event) => {
+    event.params;
 }
