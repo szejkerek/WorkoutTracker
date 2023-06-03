@@ -42,7 +42,6 @@ declare type DoneExercise = {
     repetitions: Number
 }
 
-
 declare enum ExerciseEnum {
     Weight = 1,
     Reps = 1 << 1,
