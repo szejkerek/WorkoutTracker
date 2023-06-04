@@ -27,20 +27,34 @@ export const GET: RequestHandler = async () => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const user: User = await request.json();
+    const user: NewUser = await request.json();
     const usersRef = firestore.collection("Users");
     const newUser = {
         username: user.username,
         password: user.password,
         email: user.email,
-        staticInfo: user.staticInfo,
-        followingIds: user.followingIds
+        staticInfo: {
+            age: 1,
+            avatarPath: `/avatars/${user.username}`,
+            displayName: user.username,
+            gender: user.gender,
+            heightInCM: 0
+        },
+        followingIds: []
     };
     const results = await usersRef.add(newUser);
+    const resultedUser: User = {
+        email: user.email,
+        followingIds: [],
+        id: results.id,
+        password: user.password,
+        staticInfo: newUser.staticInfo,
+        username: user.username
+    };
 
     return json({
         code: 1,
-        data: results
+        data: resultedUser
     });
 };
 
