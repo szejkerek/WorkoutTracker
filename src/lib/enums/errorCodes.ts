@@ -5,4 +5,6 @@ export enum ResultCodes {
     RECORD_EXISTS = ERROR + (1 << 2),
     RECORD_DOES_NOT_EXIST = ERROR + (1 << 3),
     INVALID_REQUEST_PARAMS = ERROR + (1 << 4),
+    USERNAME_EXISTS = ERROR + (1 << 5),
+    EMAIL_EXISTS = ERROR + (1 << 6)
 }
