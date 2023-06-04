@@ -27,31 +27,6 @@
 		userNotMatched = false;
 		$userSessionData = responseData.data;
 		goto('/feed');
-
-		// const resp = await fetch('/api/users');
-		// const users: User[] = (await resp.json()).data;
-
-		// const foundUser = users.find(
-		// 	(user) => user.username.toLowerCase() === username.toLowerCase()
-		// );
-
-		// if (foundUser === undefined) {
-		// 	incorrectUsername = true;
-
-		// 	return;
-		// }
-
-		// incorrectUsername = false;
-
-		// if (foundUser.password !== password) {
-		// 	incorrectPassword = true;
-
-		// 	return;
-		// }
-
-		// incorrectPassword = false;
-		// $userSessionData = foundUser;
-		// goto('/feed');
 	};
 </script>
 
