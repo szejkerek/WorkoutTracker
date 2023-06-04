@@ -53,10 +53,17 @@
 			>
 				<div class="flex flex-col">
 					<div class="flex flex-row justify-between">
-						<span class="text-3xl font-semibold">
-							{user.staticInfo.displayName}
-						</span>
-						{#if $userSessionData !== null && $userSessionData.id !== user.id}
+						<div class="flex flex-row items-center">
+							<span class="text-3xl font-semibold">
+								{user.staticInfo.displayName}
+							</span>
+							{#if $userSessionData && user.followingIds.includes($userSessionData.id)}
+								<span class="badge badge-secondary ml-5">
+									Follows you
+								</span>
+							{/if}
+						</div>
+						{#if $userSessionData && $userSessionData.id !== user.id}
 							{#if $userSessionData.followingIds.includes(user.id)}
 								<button
 									on:click={() => unfollow()}
