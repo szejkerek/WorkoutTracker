@@ -17,7 +17,9 @@
 
 	export let data;
 
-	let posts: Post[] = data.postsData;
+	let posts: Post[] = data.postsData.filter((post) =>
+		$userSessionData?.followingIds.includes(post.author.id)
+	);
 	let postsNumber: number = 5;
 
 	const showMorePosts = () => {
