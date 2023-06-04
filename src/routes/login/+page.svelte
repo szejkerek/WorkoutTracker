@@ -2,38 +2,56 @@
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/static/Logo.png';
 	import { userSessionData } from '../../stores/userSession';
+	import { ResultCodes } from '$lib/enums/errorCodes';
 
 	let username: String;
 	let password: String;
 
-	let incorrectUsername = false;
-	let incorrectPassword = false;
+	let userNotMatched = false;
 
 	const login = async () => {
-		const resp = await fetch('/api/users');
-		const users: User[] = (await resp.json()).data;
-
-		const foundUser = users.find(
-			(user) => user.username.toLowerCase() === username.toLowerCase()
+		const loginResponse = await fetch(
+			`/api/login?username=${username}&password=${password}`,
+			{
+				method: 'GET'
+			}
 		);
+		const responseData = await loginResponse.json();
 
-		if (foundUser === undefined) {
-			incorrectUsername = true;
-
-			return;
-		}
-
-		incorrectUsername = false;
-
-		if (foundUser.password !== password) {
-			incorrectPassword = true;
+		if (responseData.code & ResultCodes.ERROR) {
+			userNotMatched = true;
 
 			return;
 		}
 
-		incorrectPassword = false;
-		$userSessionData = foundUser;
+		userNotMatched = false;
+		$userSessionData = responseData.data;
 		goto('/feed');
+
+		// const resp = await fetch('/api/users');
+		// const users: User[] = (await resp.json()).data;
+
+		// const foundUser = users.find(
+		// 	(user) => user.username.toLowerCase() === username.toLowerCase()
+		// );
+
+		// if (foundUser === undefined) {
+		// 	incorrectUsername = true;
+
+		// 	return;
+		// }
+
+		// incorrectUsername = false;
+
+		// if (foundUser.password !== password) {
+		// 	incorrectPassword = true;
+
+		// 	return;
+		// }
+
+		// incorrectPassword = false;
+		// $userSessionData = foundUser;
+		// goto('/feed');
 	};
 </script>
 
@@ -76,14 +94,10 @@
 			</div>
 		</div>
 		<div class="flex justify-center">
-			{#if incorrectUsername}
+			{#if userNotMatched}
 				<p class="text-red-500 font-semibold">
-					No such username exists.
+					Wrong username or password.
 				</p>
-			{/if}
-
-			{#if incorrectPassword}
-				<p class="text-red-500 font-semibold">Incorrect password.</p>
 			{/if}
 		</div>
 	</form>
