@@ -4,7 +4,6 @@
 	import { userSessionData } from '../../stores/userSession';
 
 	export let postData: Post;
-	let logged: boolean = true;
 	let commentsNumber: number = 3;
 	let commentFormInput: String;
 
@@ -65,7 +64,7 @@
 			>
 		{/if}
 	</div>
-	{#if logged}
+	{#if $userSessionData !== null}
 		<form
 			on:submit|preventDefault={postComment}
 			class="flex flex-row w-full mt-5"
