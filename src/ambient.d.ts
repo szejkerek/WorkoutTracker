@@ -43,6 +43,13 @@ declare type User = {
     followingIds: String[]
 }
 
+declare type NewUser = {
+    username: String,
+    password: String,
+    email: String,
+    gender: 'Male' | 'Female' | 'Other' | 'Murcin'
+}
+
 declare type UserCategory = {
     id: String,
     name: String,
