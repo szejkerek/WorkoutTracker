@@ -1,10 +1,42 @@
 <script lang="ts">
 	import PostComp from '$lib/posts/PostComp.svelte';
 	import ProfileDefault from '$lib/static/ProfileDefault.svg';
+	import { userSessionData } from '../../../stores/userSession';
 
 	export let data;
 	let user: User = data.userData;
 	let posts: Post[] = data.postsData;
+
+	const follow = async () => {
+		if ($userSessionData === null || $userSessionData.id === user.id) {
+			return;
+		}
+
+		$userSessionData.followingIds = [
+			...$userSessionData.followingIds,
+			user.id
+		];
+
+		await fetch(`/api/users/${$userSessionData.id}`, {
+			method: 'PATCH',
+			body: JSON.stringify($userSessionData)
+		});
+	};
+
+	const unfollow = async () => {
+		if ($userSessionData === null || $userSessionData.id === user.id) {
+			return;
+		}
+
+		$userSessionData.followingIds = $userSessionData.followingIds.filter(
+			(id) => id !== user.id
+		);
+
+		await fetch(`/api/users/${$userSessionData.id}`, {
+			method: 'PATCH',
+			body: JSON.stringify($userSessionData)
+		});
+	};
 </script>
 
 <div class="flex flex-row justify-center min-h-screen p-10">
@@ -20,9 +52,28 @@
 				class="w-full text-2xl text-black ml-10 py-10 flex flex-col justify-around"
 			>
 				<div class="flex flex-col">
-					<span class="text-3xl font-semibold">
-						{user.staticInfo.displayName}
-					</span>
+					<div class="flex flex-row justify-between">
+						<span class="text-3xl font-semibold">
+							{user.staticInfo.displayName}
+						</span>
+						{#if $userSessionData !== null && $userSessionData.id !== user.id}
+							{#if $userSessionData.followingIds.includes(user.id)}
+								<button
+									on:click={() => unfollow()}
+									class="p-3 text-lg rounded-lg border-2 border-purple-400 bg-purple-300 w-1/6"
+								>
+									Unfollow
+								</button>
+							{:else}
+								<button
+									on:click={() => follow()}
+									class="p-3 text-lg rounded-lg border-2 border-purple-500 bg-purple-400 w-1/6"
+								>
+									Follow
+								</button>
+							{/if}
+						{/if}
+					</div>
 					<span>{user.staticInfo.gender}</span>
 				</div>
 
