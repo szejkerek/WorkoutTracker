@@ -14,29 +14,45 @@
 	});
 
   let profileDataChanged = false;
-  let currentDisplayName = $userSessionData?.staticInfo.displayName;
-  let currentAvatarPath  = $userSessionData?.staticInfo.avatarPath;
-  let currentHeightInCM  = $userSessionData?.staticInfo.heightInCM;
-  let currentAge         = $userSessionData?.staticInfo.age;
-  let currentGender      = $userSessionData?.staticInfo.gender; 
+  let currentDisplayName = $userSessionData?.staticInfo.displayName as string;
+  let currentAvatarPath  = $userSessionData?.staticInfo.avatarPath as string;
+  let currentHeightInCM  = $userSessionData?.staticInfo.heightInCM as number;
+  let currentAge         = $userSessionData?.staticInfo.age as number;
+  let currentGender      = $userSessionData?.staticInfo.gender as 'Male' | 'Female' | 'Other' | 'Murcin'; 
 
-  let changingField: string;
+  let invalidFormData = false;
+
   let genderOptions: string[] = ['Male', 'Female', 'Other', 'Murcin'];
 
-  function saveProfile() {
+  const saveProfile = async() => {
 
-    /*const updatedStaticInfo: StaticInfo {
-      displayName = currentDisplayName,
-      age = currentAge,
-      gender = currentGender,
-      heightInCM = currentHeightInCM,
-      avatarPath = ""
+    if ($userSessionData === null) {
+			return
+    }
+
+    invalidFormData =
+      currentDisplayName === '' ||
+      currentAge <= 0 ||
+      currentHeightInCM <= 0;
+
+    if(invalidFormData){
+      return;
+    }
+
+    const updatedStaticInfo: StaticInfo = {
+      displayName: currentDisplayName,
+      age: currentAge,
+      gender: currentGender,
+      heightInCM: currentHeightInCM,
+      avatarPath: currentAvatarPath
     };
 
-    const updatedUserResponse = await fetch('/api/register', {
-      method: 'POST',
-      body: JSON.stringify(updatedStaticInfo)
-    });*/
+    $userSessionData.staticInfo = updatedStaticInfo;
+
+    const updatedUserResponse = await fetch(`/api/users/${$userSessionData.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify($userSessionData)
+    });
 
     profileDataChanged = true;
 }
@@ -61,8 +77,11 @@
     goto(route);
   }
 </script>
+
 {#if ready}
-<div class="w-full h-full py-40 text-center bg-gray-300 flex flex-col justify-center items-center">
+<form
+  on:submit|preventDefault={(_) => saveProfile()}
+  class="w-full h-full py-40 text-center bg-gray-300 flex flex-col justify-center items-center">
   <div class="flex flex-col justify-center items-center">
     <h1 class="text-5xl text-black mb-12">
       Edit profile
@@ -71,31 +90,28 @@
       <label>
         <p>Display Name:</p>
         <input bind:value={currentDisplayName}
-               type="text" placeholder="Display Name" class="input"
-               on:input={() => changingField = 'display name'} />
+               type="text" placeholder="Display Name" class="input"/>
       </label>
     </div>
     <div class="mb-4">
       <label>
         <p>Age:</p>
         <input bind:value={currentAge}
-               type="number" placeholder="Age" class="input"
-               on:input={() => changingField = 'age'} />
+               type="number" placeholder="Age" class="input"/>
       </label>
     </div>
     <div class="mb-4">
       <label>
         <p>Height (cm):</p>
         <input bind:value={currentHeightInCM}
-               type="number" placeholder="Height (cm)" class="input"
-               on:input={() => changingField = 'height'} />
+               type="number" placeholder="Height (cm)" class="input"/>
       </label>
     </div>
     <div class="mb-4">
       <label>
         <p>Gender:</p>
         <select bind:value={currentGender}
-         class="input" on:change={() => changingField = 'gender'}>
+         class="input">
           {#each genderOptions as option}
             <option value={option}>{option}</option>
           {/each}
@@ -112,48 +128,44 @@
       {/if}
     </div>
   </div>
-
-  </div>
-    <div class="flex justify-center mt-6">
-      <button on:click={saveProfile} class="btn btn-purple">
+    <div class="flex justify-center">
+      <button type="submit" class="btn btn-purple">
         Save
       </button>
       <button on:click={cancelEditing} class="btn btn-secondary ml-4">
         Cancel
       </button>
     </div>
+    <div class="flex justify-center mt-6">
+			{#if profileDataChanged}
+				<p class="font-semibold">
+					Profile saved.
+				</p>
+			{/if}
+      </div>
+  </form>
 {/if}
 <style>
   .btn {
-    @apply shadow-lg font-bold py-2 px-4 rounded;
-    @apply bg-gray-500 text-white;
+    @apply text-white shadow-lg font-bold py-2 px-4 rounded;
   }
   .btn:hover {
     @apply bg-gray-700;
   }
   .btn-purple {
-    @apply bg-purple-500 text-white;
+    @apply bg-purple-500;
   }
   .btn-purple:hover {
     @apply bg-purple-700;
   }
-
   .input {
     @apply px-4 py-2 mt-2 rounded-md border-gray-400 shadow-lg;
     background-color: #391e46;
     width: 100%; 
   }
-
-  .frame {
-    background-color: #c6c0c8;
-    padding: 20px;
-    border-radius: 10px;
-  }
-
   p {
     @apply text-black;
   }
-
   .profile-photo {
     width: 150px;
     height: 150px;
