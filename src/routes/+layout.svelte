@@ -65,37 +65,24 @@
 	}[] = [
 		{
 			icon: homeIcon,
-			name: 'Home',
-			route: '/feed'
+			name: 'Workout',
+			route: '/workout-main'
 		},
 		{
 			icon: searchIcon,
-			name: 'Search',
-			route: '/feed'
+			name: 'Body',
+			route: '/analysis/body-profile'
 		},
 		{
 			icon: notificationsIcon,
-			name: 'Notifications',
-			route: '/feed'
+			name: 'Calendar',
+			route: '/calendar'
 		},
 		{
-			icon: profileIcon,
-			name: 'Profile',
-			route:
-				$userSessionData === null
-					? '/start'
-					: `/user/${$userSessionData.id}`
+			icon: notificationsIcon,
+			name: 'Graphs',
+			route: '/analysis/graphs'
 		},
-		{
-			icon: settingsIcon,
-			name: 'Settings',
-			route: '/feed'
-		},
-		{
-			icon: reportIcon,
-			name: 'Report',
-			route: '/feed'
-		}
 	];
 </script>
 
