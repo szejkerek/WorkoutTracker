@@ -8,6 +8,11 @@
 	import profileIcon from '$lib/static/icons/profile-icon.svg';
 	import settingsIcon from '$lib/static/icons/settings-icon.svg';
 	import reportIcon from '$lib/static/icons/report-icon.svg';
+	import bodyIcon from '$lib/static/icons/body-icon.svg';
+	import calendarIcon from '$lib/static/icons/calendar-icon.svg';
+	import chartIcon from '$lib/static/icons/chart-icon.svg';
+	import workoutIcon from '$lib/static/icons/workout-icon.svg';
+	import logoutIcon from '$lib/static/icons/logout-icon.svg';
 	import { userSessionData } from '../stores/userSession';
 
 	const routesWithNoSidemenu: (string | null)[] = [
@@ -64,22 +69,22 @@
 		icon: string;
 	}[] = [
 		{
-			icon: homeIcon,
+			icon: workoutIcon,
 			name: 'Workout',
 			route: '/workout-main'
 		},
 		{
-			icon: searchIcon,
+			icon: bodyIcon,
 			name: 'Body',
 			route: '/analysis/body-profile'
 		},
 		{
-			icon: notificationsIcon,
+			icon: calendarIcon,
 			name: 'Calendar',
 			route: '/calendar'
 		},
 		{
-			icon: notificationsIcon,
+			icon: chartIcon,
 			name: 'Graphs',
 			route: '/analysis/graphs'
 		},
