@@ -27,24 +27,17 @@
     goto("/");
   };
 </script>
-<div class="w-full h-full py-40 text-center bg-gray-300 flex justify-center items-center">
-  <div class="frame w-1/4">
+<div class="w-full h-full py-40 text-center bg-gray-300 flex flex-col justify-center items-center">
     <div class="flex flex-col justify-center items-center">
-      <p class="font-black text-4xl mb-8">
+      <h1 class="text-5xl text-black mb-12">
         Edit profile
-      </p>
+      </h1>
       <div class="mb-4">
         <label>
           <p>Display Name:</p>
           <input bind:value={user.staticInfo.displayName} type="text" placeholder="Display Name" class="input" on:input={() => changingField = 'display name'} />
         </label>
       </div>
-      <div class="mb-4">
-        <label>
-          <p>Username:</p>
-          <input bind:value={user.username} type="text" placeholder="Username" class="input" on:input={() => changingField = 'username'} />
-        </label>
-      </div>   
       <div class="mb-4">
         <label>
           <p>Age:</p>
@@ -69,7 +62,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center mt-6">
+    <div class="flex justify-center mt-12">
       <button on:click={saveProfile} class="btn btn-blue">
         Save
       </button>
@@ -77,7 +70,6 @@
         Cancel
       </button>
     </div>
-  </div>
 </div>
 
 <style>

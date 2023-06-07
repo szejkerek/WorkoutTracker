@@ -18,10 +18,10 @@ declare interface DatabaseReturnData {
 }
 
 declare type StaticInfo = {
-    age: Number,
-    gender: 'Male' | 'Female' | 'Other' | 'Murcin',
     displayName: String,
     avatarPath: String,
+    age: Number,
+    gender: 'Male' | 'Female' | 'Other' | 'Murcin',
     heightInCM: Number
 }
 
