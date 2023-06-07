@@ -80,7 +80,7 @@
         <input type="file" accept="image/*" class="input"  on:change={handlePhotoChange} />
       </label>
       {#if user.staticInfo.avatarPath}
-        <img src={user.staticInfo.avatarPath} alt="Profile Photo" class="profile-photo shadow-lg " />
+        <img src={user.staticInfo.avatarPath} alt="Profile Photo" class="profile-photo border-solid-#fff shadow-lg " />
       {/if}
     </div>
   </div>
