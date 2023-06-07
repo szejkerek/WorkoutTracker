@@ -77,10 +77,10 @@
     <div class="mb-4 flex flex-col justify-center items-center">
       <label>
         <p>Avatar:</p>
-        <input type="file" accept="image/*" class="input" on:change={handlePhotoChange} />
+        <input type="file" accept="image/*" class="input"  on:change={handlePhotoChange} />
       </label>
       {#if user.staticInfo.avatarPath}
-        <img src={user.staticInfo.avatarPath} alt="Profile Photo" class="profile-photo " />
+        <img src={user.staticInfo.avatarPath} alt="Profile Photo" class="profile-photo shadow-lg " />
       {/if}
     </div>
   </div>
