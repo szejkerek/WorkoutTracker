@@ -36,7 +36,7 @@
 		{
 			icon: searchIcon,
 			name: 'Search',
-			route: '/feed'
+			route: '/search'
 		},
 		{
 			icon: notificationsIcon,
