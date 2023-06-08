@@ -1,8 +1,9 @@
 <script lang="ts">
-
+  import Dumbbell from '$lib/static/Dumbbell.svg';
   import { userSessionData } from '../../../stores/userSession.js';
   import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+
   let ready = false;
 
 	onMount(() => {
@@ -14,32 +15,18 @@
 	});
 
 	export let data;
-  let muscleParts: { name: string; exercises: string[] }[] = [
-    {
-      name: 'Arms',
-      exercises: ['Bicep Curls', 'Tricep Dips', 'Hammer Curls']
-    },
-    {
-      name: 'Legs',
-      exercises: ['Squats', 'Lunges', 'Deadlifts']
-    },
-    {
-      name: 'Back',
-      exercises: ['Pull-ups', 'Rows', 'Deadlifts']
-    },
-    {
-      name: 'Chest',
-      exercises: ['Dumbbell Press', 'Barbell Press', 'Fly Pec Deck']
-    }
-  ];
 
-  let selectedMusclePart: { name: string; exercises: string[] } | null = null;
+  let categories: UserCategory[] = data.categoriesData.filter((category) =>
+      category.owner === $userSessionData
+  );
+
+  let selectedCategory: UserCategory | null = null;
   let selectedExercise: string | null = null;
   let series: number | null = null;
   let reps: number | null = null;
 
-  function selectMusclePart(musclePart: { name: string; exercises: string[] }) {
-    selectedMusclePart = musclePart;
+  function selectCategory(category: UserCategory) {
+    selectedCategory = category;
     selectedExercise = null;
   }
 
@@ -47,26 +34,31 @@
     selectedExercise = exercise;
   }
 
-  function addExercise() {
-    console.log(selectedExercise, series, reps);
+  function addExerciseCategory() {
+    //
   }
 </script>
 
 {#if ready}
-  <div class="flex flex-row justify-center min-h-screen p-10">
-    <div class="w-1/6 p-3 border-r-2 border-purple-300"></div>
+  <div class="flex flex-col items-center min-h-screen p-10 w-full mx-auto">
+    <div class="flex flex-row justify-between w-1/2 mb-10">
+			<h1 class="text-5xl text-black flex flex-col justify-center">
+				Exercise categories
+			</h1>
+			<img src={Dumbbell} alt="dumbbell-icon" width="100" height="100" />
+		</div>
     <div class="w-2/3 p-3 flex flex-col items-center ">
-      {#each muscleParts as musclePart}
+      {#each categories as category}
         <button
           class="p-2 my-2 rounded cursor-pointer text-black font-semibold text-2xl"
-          class:selected="{selectedMusclePart === musclePart}"
-          on:click="{() => selectMusclePart(musclePart)}"
+          class:selected="{selectedCategory === category}"
+          on:click="{() => selectCategory(category)}"
         >
-          {musclePart.name}
+          {category.name}
         </button>
-        {#if selectedMusclePart === musclePart}
+        {#if selectedCategory === category}
           <div class="w-1/2 flex flex-col justify-center items-center py-5">
-            {#each musclePart.exercises as exercise}
+            {#each category.name as exercise}
               <button
                 class="p-2 my-2 rounded cursor-pointer text-black font-serif text-xl"
                 class:selected="{selectedExercise === exercise}"
