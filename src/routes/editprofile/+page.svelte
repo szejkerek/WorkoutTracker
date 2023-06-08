@@ -86,30 +86,32 @@
     <h1 class="text-5xl text-black mb-12">
       Edit profile
     </h1>
+
     <div class="mb-4">
       <label>
-        <p>Display Name:</p>
+        <p class="text-black">Display Name:</p>
         <input bind:value={currentDisplayName}
                type="text" placeholder="Display Name" class="input"/>
       </label>
     </div>
     <div class="mb-4">
       <label>
-        <p>Age:</p>
+        <p class="text-black">Age:</p>
         <input bind:value={currentAge}
                type="number" placeholder="Age" class="input"/>
       </label>
     </div>
     <div class="mb-4">
       <label>
-        <p>Height (cm):</p>
+        <p class="text-black">Height (cm):</p>
         <input bind:value={currentHeightInCM}
                type="number" placeholder="Height (cm)" class="input"/>
       </label>
     </div>
+
     <div class="mb-4">
       <label>
-        <p>Gender:</p>
+        <p class="text-black">Gender:</p>
         <select bind:value={currentGender}
          class="input">
           {#each genderOptions as option}
@@ -118,15 +120,17 @@
         </select>
       </label>
     </div>
+
     <div class="mb-4 flex flex-col justify-center items-center">
       <label>
-        <p>Avatar:</p>
-        <input type="file" accept="image/*" class="input"  on:change={handlePhotoChange} />
+        <p class="text-black">Avatar:</p>
+        <input type="file" accept="image/*" class="input px-4 py-2 mt-2 rounded-md border-gray-400 shadow-lg w-full"  on:change={handlePhotoChange} />
       </label>
       {#if currentAvatarPath}
-        <img src={currentAvatarPath} alt="Avatar" class="w-40 h-40 object-cover mt-2 rounded-3xl border-solid-#fff shadow-lg"/>
+        <img src={currentAvatarPath} alt="Avatar" class="w-40 h-40 object-cover mt-2 rounded-full border-solid-#fff shadow-lg"/>
       {/if}
     </div>
+
   </div>
 
     <div class="flex justify-center">
@@ -138,7 +142,14 @@
 
     <div class="flex justify-center mt-6">
 			{#if profileDataChanged}
-				<p class="font-semibold">Profile saved.</p>
+				<p class="text-black font-semibold">
+          Profile saved.
+        </p>
+			{/if}
+      {#if invalidFormData}
+				<p class="text-red-500 font-semibold">
+					Please fill the form correctly.
+				</p>
 			{/if}
     </div>
 
@@ -146,19 +157,7 @@
 {/if}
 <style>
   .input {
-    @apply px-4 py-2 mt-2 rounded-md border-gray-400 shadow-lg;
     background-color: #391e46;
     width: 100%; 
-  }
-  p {
-    @apply text-black;
-  }
-
-  .profile-photo {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-top: 10px;
   }
 </style>
