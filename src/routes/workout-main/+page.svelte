@@ -17,19 +17,45 @@
 		}
 	});
 
-    let todayDate = new Date();
-    let day = todayDate.getDate() < 10 ? "0" + todayDate.getDate() : todayDate.getDate();
-    let month = todayDate.getMonth() + 1  < 10 ? "0" + (todayDate.getMonth() + 1) : todayDate.getMonth() + 1;
-    let parsedDate = day + "." + month + "." + todayDate.getFullYear();
+    function parseDate() {
+        day   = currentDate.getDate();
+        month = currentDate.getMonth();
+        let parsedDay   = day < 10 ? "0" + day : day;
+        let parsedMonth = month + 1 < 10 ? "0" + (month + 1) : month + 1;
+        parsedDate  = parsedDay + "/" + parsedMonth + "/" + currentDate.getFullYear();
+    }
 
-  
+    function decrementDay() {
+        currentDate.setDate(currentDate.getDate() - 1);
+        parseDate();
+    }
+
+    function incrementDay() {
+        currentDate.setDate(currentDate.getDate() + 1);
+        parseDate();  
+    }
+
     function startNewWorkout() {
         goto("/workout-categories");
     }
 
     function copyPreviousWorkout() {
         goto("/calendar");
-    };
+    }
+
+    export let data;
+
+    let todayDate = new Date();
+    let currentDate = todayDate;
+    let day;
+    let month;
+    let parsedDate: String;
+    parseDate();
+
+    let doneExercises: DoneExercise[];
+
+
+    
   </script>
 {#if ready}
   <div class="w-full h-full py-10 text-center bg-gray-300 flex flex-col justify-center items-center">
@@ -47,11 +73,11 @@
    </div>
 
    <div class="flex justify-around items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
-    <button>
+    <button on:click={decrementDay}>
         <img src={arrow_left} alt="Previous day icon" class="w-5 h-5">
     </button>
     <p>{parsedDate}</p>
-    <button>
+    <button on:click={incrementDay}>
         <img src={arrow_right} alt="Next day icon" class="w-5 h-5">
     </button>
     </div>
