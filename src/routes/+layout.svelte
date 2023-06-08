@@ -71,7 +71,7 @@
 		{
 			icon: workoutIcon,
 			name: 'Workout',
-			route: '/workout-main'
+			route: '/workout/main'
 		},
 		{
 			icon: bodyIcon,
