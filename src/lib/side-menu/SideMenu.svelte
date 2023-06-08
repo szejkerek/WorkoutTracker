@@ -2,6 +2,8 @@
 	import SideMenuItem from './SideMenuItem.svelte';
 	import logo from '$lib/static/Logo.png';
 	import homeIcon from '$lib/static/icons/home-icon.svg';
+	import { goto } from '$app/navigation';
+	import { root } from 'postcss';
 
 	export let pages: {
 		name: string;
@@ -15,13 +17,14 @@
 
 <div class="w-1/2 flex flex-col items-start justify-between h-screen pb-16">
 	<div>
-		<div class="pt-12" class:invisible = {scuffedWorkaround}>
+		<button class="pt-12" class:invisible = {scuffedWorkaround}
+				on:click={() => goto("/")}>			
 			<img
 				src={logo}
 				alt="logo"
 				class="w-24 h-24 mb-12 -translate-x-1/3"
 			/>
-		</div>
+		</button>
 		<div>
 			{#each pages as page}
 				<p>
