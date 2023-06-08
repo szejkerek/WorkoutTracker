@@ -59,7 +59,7 @@
 		{
 			icon: reportIcon,
 			name: 'Report',
-			route: '/feed'
+			route: '/report'
 		}
 	];
 
@@ -87,7 +87,7 @@
 			icon: chartIcon,
 			name: 'Graphs',
 			route: '/analysis/graphs'
-		},
+		}
 	];
 </script>
 
@@ -107,7 +107,7 @@
 		<div
 			class="w-1/6 border-l border-wisteria flex flex-row justify-center items-center my-10 box-border"
 		>
-			<SideMenu pages={rightPages} scuffedWorkaround={true}/>
+			<SideMenu pages={rightPages} scuffedWorkaround={true} />
 		</div>
 	{/if}
 </div>
