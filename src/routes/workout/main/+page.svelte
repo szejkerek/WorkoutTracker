@@ -36,7 +36,7 @@
     }
 
     function startNewWorkout() {
-        goto("/workout-categories");
+        goto("/workout/add-exercise");
     }
 
     function copyPreviousWorkout() {
@@ -52,6 +52,10 @@
     let parsedDate: String;
     parseDate();
 
+    //to-do
+    //get done exercises with date = currentDate and user = currently logged in user
+    //if any exercises with date = currentDate exist => display them below the date-thingy
+    //else display previous workout and buttons enabling the user to start a new workout or to copy a previously done workout
     let doneExercises: DoneExercise[];
 
 
