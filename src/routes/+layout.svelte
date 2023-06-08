@@ -96,7 +96,7 @@
 		<div
 			class="w-1/6 border-r border-wisteria flex flex-row justify-center items-center my-10 box-border"
 		>
-			<SideMenu pages={leftPages} />
+			<SideMenu pages={leftPages} scuffedWorkaround={false} />
 		</div>
 	{/if}
 
@@ -107,7 +107,7 @@
 		<div
 			class="w-1/6 border-l border-wisteria flex flex-row justify-center items-center my-10 box-border"
 		>
-			<SideMenu pages={rightPages} />
+			<SideMenu pages={rightPages} scuffedWorkaround={true}/>
 		</div>
 	{/if}
 </div>

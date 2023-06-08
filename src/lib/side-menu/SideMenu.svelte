@@ -8,11 +8,14 @@
 		route: string;
 		icon: string;
 	}[];
+
+	export let scuffedWorkaround: boolean;
+
 </script>
 
 <div class="w-1/2 flex flex-col items-start justify-between h-screen pb-16">
 	<div>
-		<div class="pt-12">
+		<div class="pt-12" class:invisible = {scuffedWorkaround}>
 			<img
 				src={logo}
 				alt="logo"
@@ -31,7 +34,7 @@
 			{/each}
 		</div>
 	</div>
-	<div>
+	<div class:invisible = {scuffedWorkaround}>
 		<SideMenuItem name="Logout" route="/logout" icon={homeIcon} />
 	</div>
 </div>
