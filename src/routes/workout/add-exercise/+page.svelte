@@ -1,42 +1,58 @@
 <script lang="ts">
-    let muscleParts: { name: string; exercises: string[] }[] = [
-      {
-        name: 'Arms',
-        exercises: ['Bicep Curls', 'Tricep Dips', 'Hammer Curls']
-      },
-      {
-        name: 'Legs',
-        exercises: ['Squats', 'Lunges', 'Deadlifts']
-      },
-      {
-        name: 'Back',
-        exercises: ['Pull-ups', 'Rows', 'Deadlifts']
-      },
-      {
-        name: 'Chest',
-        exercises: ['Dumbbell Press', 'Barbell Press', 'Fly Pec Deck']
-      }
-    ];
-  
-    let selectedMusclePart: { name: string; exercises: string[] } | null = null;
-    let selectedExercise: string | null = null;
-    let series: number | null = null;
-    let reps: number | null = null;
-  
-    function selectMusclePart(musclePart: { name: string; exercises: string[] }) {
-      selectedMusclePart = musclePart;
-      selectedExercise = null;
+
+  import { userSessionData } from '../../../stores/userSession.js';
+  import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+  let ready = false;
+
+	onMount(() => {
+		if ($userSessionData === null) {
+			goto('/start');
+		} else {
+			ready = true;
+		}
+	});
+
+	export let data;
+  let muscleParts: { name: string; exercises: string[] }[] = [
+    {
+      name: 'Arms',
+      exercises: ['Bicep Curls', 'Tricep Dips', 'Hammer Curls']
+    },
+    {
+      name: 'Legs',
+      exercises: ['Squats', 'Lunges', 'Deadlifts']
+    },
+    {
+      name: 'Back',
+      exercises: ['Pull-ups', 'Rows', 'Deadlifts']
+    },
+    {
+      name: 'Chest',
+      exercises: ['Dumbbell Press', 'Barbell Press', 'Fly Pec Deck']
     }
-  
-    function selectExercise(exercise: string) {
-      selectedExercise = exercise;
-    }
-  
-    function addExercise() {
-      console.log(selectedExercise, series, reps);
-    }
-  </script>
-  
+  ];
+
+  let selectedMusclePart: { name: string; exercises: string[] } | null = null;
+  let selectedExercise: string | null = null;
+  let series: number | null = null;
+  let reps: number | null = null;
+
+  function selectMusclePart(musclePart: { name: string; exercises: string[] }) {
+    selectedMusclePart = musclePart;
+    selectedExercise = null;
+  }
+
+  function selectExercise(exercise: string) {
+    selectedExercise = exercise;
+  }
+
+  function addExercise() {
+    console.log(selectedExercise, series, reps);
+  }
+</script>
+
+{#if ready}
   <div class="flex flex-row justify-center min-h-screen p-10">
     <div class="w-1/6 p-3 border-r-2 border-purple-300"></div>
     <div class="w-2/3 p-3 flex flex-col items-center ">
@@ -73,4 +89,4 @@
     </div>
     <div class="w-1/6 p-3 border-l-2 border-purple-300"></div>
   </div>
-  
+{/if}
