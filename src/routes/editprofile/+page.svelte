@@ -124,40 +124,27 @@
         <input type="file" accept="image/*" class="input"  on:change={handlePhotoChange} />
       </label>
       {#if currentAvatarPath}
-        <img src={currentAvatarPath} alt="Avatar" class="profile-photo border-solid-#fff shadow-lg"/>
+        <img src={currentAvatarPath} alt="Avatar" class="w-40 h-40 object-cover mt-2 rounded-3xl border-solid-#fff shadow-lg"/>
       {/if}
     </div>
   </div>
+
     <div class="flex justify-center">
-      <button type="submit" class="btn btn-purple">
-        Save
-      </button>
-      <button on:click={cancelEditing} class="btn btn-secondary ml-4">
-        Cancel
-      </button>
+      <button type="submit"            class="text-white shadow-lg font-bold py-2 px-4 rounded bg-purple-500 
+                                              hover:bg-purple-700">Save</button>
+      <button on:click={cancelEditing} class="text-white shadow-lg font-bold py-2 px-4 rounded bg-gray-500 ml-4
+                                              hover:bg-gray-700 ">Cancel</button>
     </div>
+
     <div class="flex justify-center mt-6">
 			{#if profileDataChanged}
-				<p class="font-semibold">
-					Profile saved.
-				</p>
+				<p class="font-semibold">Profile saved.</p>
 			{/if}
-      </div>
+    </div>
+
   </form>
 {/if}
 <style>
-  .btn {
-    @apply text-white shadow-lg font-bold py-2 px-4 rounded;
-  }
-  .btn:hover {
-    @apply bg-gray-700;
-  }
-  .btn-purple {
-    @apply bg-purple-500;
-  }
-  .btn-purple:hover {
-    @apply bg-purple-700;
-  }
   .input {
     @apply px-4 py-2 mt-2 rounded-md border-gray-400 shadow-lg;
     background-color: #391e46;
@@ -166,6 +153,7 @@
   p {
     @apply text-black;
   }
+
   .profile-photo {
     width: 150px;
     height: 150px;
