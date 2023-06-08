@@ -3,7 +3,7 @@
     import { onMount } from "svelte";
     import icon_calendar from "$lib/static/icons/calendar-icon.svg";
     import icon_workout from "$lib/static/icons/workout-icon.svg";
-    import { userSessionData } from '../../stores/userSession.js';
+    import { userSessionData } from '../../../stores/userSession.js';
     import arrow_left from "$lib/static/icons/arrow-left.svg";
     import arrow_right from "$lib/static/icons/arrow-right.svg";
   
