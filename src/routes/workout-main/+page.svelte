@@ -4,6 +4,8 @@
     import icon_calendar from "$lib/static/icons/calendar-icon.svg";
     import icon_workout from "$lib/static/icons/workout-icon.svg";
     import { userSessionData } from '../../stores/userSession.js';
+    import arrow_left from "$lib/static/icons/arrow-left.svg";
+    import arrow_right from "$lib/static/icons/arrow-right.svg";
   
     let ready = false;
   
@@ -45,9 +47,13 @@
    </div>
 
    <div class="flex justify-around items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
-    <button>prev</button>
+    <button>
+        <img src={arrow_left} alt="Previous day icon" class="w-5 h-5">
+    </button>
     <p>{parsedDate}</p>
-    <button>next</button>
+    <button>
+        <img src={arrow_right} alt="Next day icon" class="w-5 h-5">
+    </button>
     </div>
 
    <div class="flex flex-row items-center">
