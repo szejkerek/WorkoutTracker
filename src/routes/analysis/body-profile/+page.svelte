@@ -99,7 +99,7 @@
     </div>
 
     <div class="text-black" style="display: {showHistory ? 'block' : 'none'};">
-      <table>
+      <table class="tablee">
         <thead>
           <tr>
             <th>Date of Measurement</th>
@@ -135,4 +135,14 @@
     background-color: #391e46;
     width: 100%;
   }
+
+  .tablee {
+    border-collapse: separate;
+  }
+
+  .tablee th,
+  .tablee td {
+    padding: 10px;
+  }
+
 </style>
