@@ -64,14 +64,6 @@
 		profileAdded = true;
 	};
 
-	function cancelEditing() {
-		let route =
-			$userSessionData === null
-				? '/start'
-				: `/user/${$userSessionData.id}`;
-		goto(route);
-	}
-
 	let showHistory = false;
 	let profileAdded = false;
 
@@ -140,11 +132,6 @@
 					type="submit"
 					class="text-white shadow-lg font-bold py-2 px-4 rounded bg-purple-500 hover:bg-purple-700"
 					>Add</button
-				>
-				<button
-					on:click={cancelEditing}
-					class="text-white shadow-lg font-bold py-2 px-4 rounded bg-gray-500 ml-4 hover:bg-gray-700"
-					>Cancel</button
 				>
 			</div>
 		</form>
