@@ -1,148 +1,210 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
-  import { userSessionData } from '../../../stores/userSession.js';
-  import { writable } from 'svelte/store';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { userSessionData } from '../../../stores/userSession.js';
+	import { ResultCodes } from '$lib/enums/errorCodes.js';
 
-  let ready = false;
+	let ready = false;
 
-  onMount(() => {
-    if ($userSessionData === null) {
-      goto('/start');
-    } else {
-      ready = true;
-    }
-  });
+	onMount(async () => {
+		if ($userSessionData === null) {
+			goto('/start');
+		} else {
+			const response = await fetch(
+				`/api/users/${$userSessionData?.id}/bodyProfiles`
+			);
+			const data = await response.json();
 
-  let currentDateOfMeasurement: Date;
-  let currentBodyFat: number;
-  let currentMuscleWeight: number;
-  let currentWeight: number;
+			bodyProfiles = data.data;
+			ready = true;
+		}
+	});
 
-  const profiles = writable<{ date: Date; bodyFat: number; muscleWeight: number; weight: number; }[]>([]);
+	let currentDateOfMeasurement: Date;
+	let currentBodyFat: number;
+	let currentMuscleWeight: number;
+	let currentWeight: number;
 
-  const saveProfile = async () => {
-    const newProfile = {
-      date: currentDateOfMeasurement,
-      bodyFat: currentBodyFat,
-      muscleWeight: currentMuscleWeight,
-      weight: currentWeight
-    };
-    profileAdded=true;
-    profiles.update(profilesData => [...profilesData, newProfile]);
-  };
+	let bodyProfiles: BodyProfile[] = [];
 
-  function cancelEditing() {
-    let route = $userSessionData === null ? '/start' : `/user/${$userSessionData.id}`;
-    goto(route);
-  }
+	const saveProfile = async () => {
+		if (
+			currentDateOfMeasurement === undefined ||
+			currentBodyFat === undefined ||
+			currentMuscleWeight === undefined ||
+			currentWeight === undefined
+		) {
+			// jais tam koasfmcsufsngtsk
+			return;
+		}
 
-  let showHistory = false;
-  let profileAdded = false;
+		const newProfile: BodyProfile = {
+			dateOfMeasurement: currentDateOfMeasurement
+				.toString()
+				.split('-')
+				.reverse()
+				.join('/'),
+			bodyFatInPercentage: currentBodyFat,
+			muscleWeightInKG: currentMuscleWeight,
+			weightInKG: currentWeight,
+			owner: $userSessionData as User,
+			id: ''
+		};
 
-  function toggleHistory() {
-    showHistory = !showHistory;
-    profileAdded = false;
-  }
+		const response = await fetch('/api/bodyProfiles', {
+			method: 'POST',
+			body: JSON.stringify(newProfile)
+		});
+		const result = await response.json();
+
+		if (result.code == ResultCodes.SUCCESS) {
+			bodyProfiles = [result.data, ...bodyProfiles];
+		}
+
+		profileAdded = true;
+	};
+
+	function cancelEditing() {
+		let route =
+			$userSessionData === null
+				? '/start'
+				: `/user/${$userSessionData.id}`;
+		goto(route);
+	}
+
+	let showHistory = false;
+	let profileAdded = false;
+
+	function toggleHistory() {
+		showHistory = !showHistory;
+		profileAdded = false;
+	}
 </script>
 
 {#if ready}
-  <form
-    
-    class="w-full h-full py-40 text-center bg-gray-300 flex flex-col justify-center items-center">
-    <div class="flex flex-col justify-center items-center">
-      <h1 class="text-5xl text-black mb-12">
-        Edit body profile
-      </h1>
+	<div class="w-full flex flex-col justify-center items-center">
+		<form
+			class="w-full py-20 text-center bg-gray-300 flex flex-col justify-center items-center"
+		>
+			<div class="flex flex-col justify-center items-center">
+				<h1 class="text-5xl text-black mb-12">Edit body profile</h1>
 
-      <div class="mb-4">
-        <label>
-          <p class="text-black">Date of Measurement:</p>
-          <input bind:value={currentDateOfMeasurement}
-                 type="date" class="input" />
-        </label>
-      </div>
-      <div class="mb-4">
-        <label>
-          <p class="text-black">Body Fat (%):</p>
-          <input bind:value={currentBodyFat}
-                 type="number" placeholder="Body Fat (%)" class="input" />
-        </label>
-      </div>
-      <div class="mb-4">
-        <label>
-          <p class="text-black">Muscle Weight (kg):</p>
-          <input bind:value={currentMuscleWeight}
-                 type="number" placeholder="Muscle Weight (kg)" class="input" />
-        </label>
-      </div>
-      <div class="mb-4">
-        <label>
-          <p class="text-black">Weight (kg):</p>
-          <input bind:value={currentWeight}
-                 type="number" placeholder="Weight (kg)" class="input" />
-        </label>
-      </div>
-    </div>
+				<div class="mb-4">
+					<label>
+						<p class="text-black">Date of Measurement:</p>
+						<input
+							bind:value={currentDateOfMeasurement}
+							type="date"
+							class="input"
+						/>
+					</label>
+				</div>
+				<div class="mb-4">
+					<label>
+						<p class="text-black">Body Fat (%):</p>
+						<input
+							bind:value={currentBodyFat}
+							type="number"
+							placeholder="Body Fat (%)"
+							class="input"
+						/>
+					</label>
+				</div>
+				<div class="mb-4">
+					<label>
+						<p class="text-black">Muscle Weight (kg):</p>
+						<input
+							bind:value={currentMuscleWeight}
+							type="number"
+							placeholder="Muscle Weight (kg)"
+							class="input"
+						/>
+					</label>
+				</div>
+				<div class="mb-4">
+					<label>
+						<p class="text-black">Weight (kg):</p>
+						<input
+							bind:value={currentWeight}
+							type="number"
+							placeholder="Weight (kg)"
+							class="input"
+						/>
+					</label>
+				</div>
+			</div>
 
-    <div class="flex justify-center">
-      <button on:click|preventDefault={(_) => saveProfile()} type="submit" class="text-white shadow-lg font-bold py-2 px-4 rounded bg-purple-500 hover:bg-purple-700">Add</button>
-      <button on:click={cancelEditing} class="text-white shadow-lg font-bold py-2 px-4 rounded bg-gray-500 ml-4 hover:bg-gray-700">Cancel</button>
-    </div>
+			<div class="flex justify-center">
+				<button
+					on:click|preventDefault={(_) => saveProfile()}
+					type="submit"
+					class="text-white shadow-lg font-bold py-2 px-4 rounded bg-purple-500 hover:bg-purple-700"
+					>Add</button
+				>
+				<button
+					on:click={cancelEditing}
+					class="text-white shadow-lg font-bold py-2 px-4 rounded bg-gray-500 ml-4 hover:bg-gray-700"
+					>Cancel</button
+				>
+			</div>
+		</form>
 
-    <div class="flex justify-center mt-6">
-      {#if profileAdded}
-        <p class="text-black font-semibold">
-          Profile added.
-        </p>
-      {/if}
-    </div>
+		<div class="flex justify-center">
+			{#if profileAdded}
+				<p class="text-black font-semibold">Profile added.</p>
+			{/if}
+		</div>
+		<div class="flex justify-center">
+			<button
+				on:click={toggleHistory}
+				class="text-white shadow-lg font-bold py-2 px-4 rounded bg-blue-500 hover:bg-blue-700"
+			>
+				{showHistory ? 'Hide History' : 'Show History'}
+			</button>
+		</div>
 
-    <div class="text-black" style="display: {showHistory ? 'block' : 'none'};">
-      <table class="tablee">
-        <thead>
-          <tr>
-            <th>Date of Measurement</th>
-            <th>Body Fat (%)</th>
-            <th>Muscle Weight (kg)</th>
-            <th>Weight (kg)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each $profiles as profile}
-            <tr>
-              <td>{profile.date}</td>
-              <td>{profile.bodyFat}</td>
-              <td>{profile.muscleWeight}</td>
-              <td>{profile.weight}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
-    <div class="flex justify-center">
-      <button on:click={toggleHistory} class="text-white shadow-lg font-bold py-2 px-4 rounded bg-blue-500 hover:bg-blue-700">
-        {showHistory ? 'Hide History' : 'Show History'}
-      </button>
-    </div>
-  </form>
-
-
+		<div
+			class="text-black flex flex-row justify-center items-center py-10"
+			style="display: {showHistory ? 'block' : 'none'};"
+		>
+			<table
+				class="tablee border border-wisteria bg-pink-lavender rounded-xl"
+			>
+				<thead>
+					<tr>
+						<th>Date of Measurement</th>
+						<th>Body Fat (%)</th>
+						<th>Muscle Weight (kg)</th>
+						<th>Weight (kg)</th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					{#each bodyProfiles as profile}
+						<tr>
+							<td>{profile.dateOfMeasurement}</td>
+							<td>{profile.bodyFatInPercentage}</td>
+							<td>{profile.muscleWeightInKG}</td>
+							<td>{profile.weightInKG}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {/if}
 
 <style>
-  .input {
-    background-color: #391e46;
-    width: 100%;
-  }
+	.input {
+		background-color: #391e46;
+		width: 100%;
+	}
 
-  .tablee {
-    border-collapse: separate;
-  }
+	.tablee {
+		border-collapse: separate;
+	}
 
-  .tablee th,
-  .tablee td {
-    padding: 10px;
-  }
-
+	.tablee th,
+	.tablee td {
+		padding: 10px;
+	}
 </style>
