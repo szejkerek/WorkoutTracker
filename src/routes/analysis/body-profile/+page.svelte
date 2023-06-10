@@ -89,7 +89,7 @@
 			<div class="flex flex-col justify-center items-center">
 				<h1 class="text-5xl text-black mb-12">Edit body profile</h1>
 
-				<div class="mb-4">
+				<div class="mb-4 w-2/3">
 					<label>
 						<p class="text-black">Date of Measurement:</p>
 						<input
@@ -99,7 +99,7 @@
 						/>
 					</label>
 				</div>
-				<div class="mb-4">
+				<div class="mb-4 w-2/3">
 					<label>
 						<p class="text-black">Body Fat (%):</p>
 						<input
@@ -110,7 +110,7 @@
 						/>
 					</label>
 				</div>
-				<div class="mb-4">
+				<div class="mb-4 w-2/3">
 					<label>
 						<p class="text-black">Muscle Weight (kg):</p>
 						<input
@@ -121,7 +121,7 @@
 						/>
 					</label>
 				</div>
-				<div class="mb-4">
+				<div class="mb-4 w-2/3">
 					<label>
 						<p class="text-black">Weight (kg):</p>
 						<input
