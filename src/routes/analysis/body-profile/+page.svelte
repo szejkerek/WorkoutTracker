@@ -76,7 +76,7 @@
 {#if ready}
 	<div class="w-full flex flex-col justify-center items-center">
 		<form
-			class="w-full py-20 text-center bg-gray-300 flex flex-col justify-center items-center"
+			class="w-full py-12 text-center bg-gray-300 flex flex-col justify-center items-center"
 		>
 			<div class="flex flex-col justify-center items-center">
 				<h1 class="text-5xl text-black mb-12">Edit body profile</h1>
@@ -135,10 +135,11 @@
 				>
 			</div>
 		</form>
-
-		<div class="flex justify-center">
+		<div class="flex justify-center py-4">
 			{#if profileAdded}
-				<p class="text-black font-semibold">Profile added.</p>
+				<p class="text-black font-semibold" style="visibility:visible;">Profile added.</p>
+			{:else}
+				<p class="text-black font-semibold" style="visibility:hidden;">Profile added.</p>
 			{/if}
 		</div>
 		<div class="flex justify-center">
@@ -147,7 +148,7 @@
 				class="text-white shadow-lg font-bold py-2 px-4 rounded bg-blue-500 hover:bg-blue-700"
 			>
 				{showHistory ? 'Hide History' : 'Show History'}
-			</button>
+			</button>			
 		</div>
 
 		<div
