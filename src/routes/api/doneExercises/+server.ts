@@ -43,9 +43,18 @@ export const GET: RequestHandler = async () => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const newDoneExercise: Exercise = await request.json();
+    const newDoneExercise: DoneExercise = await request.json();
+    const strippedExercise = {
+        date: newDoneExercise.date,
+        distanceInMeters: newDoneExercise.distanceInMeters,
+        exerciseId: newDoneExercise.exercise.id,
+        userId: newDoneExercise.owner.id,
+        repetitions: newDoneExercise.repetitions,
+        timeInSeconds: newDoneExercise.timeInSeconds,
+        weightInKG: newDoneExercise.weightInKG
+    };
     const doneExercisesRef = firestore.collection("DoneExercises");
-    const doneExercisesResults = await doneExercisesRef.add(newDoneExercise);
+    const doneExercisesResults = await doneExercisesRef.add(strippedExercise);
 
     return json({
         code: 1,
