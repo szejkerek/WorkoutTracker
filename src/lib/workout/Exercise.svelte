@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="flex flex-col justify-center border-2 border-eminence rounded-lg max-w-full w-full"
+	class="flex flex-col justify-center border-2 border-eminence rounded-lg max-w-full w-full mt-5"
 >
 	<div class="w-full border-b-2 border-eminence p-2 bg-wisteria rounded-t-lg">
 		<div class="font-bold text-2xl">
@@ -14,7 +14,7 @@
 		<div class="font-semibold text-md">{xd.exercise.category.name}</div>
 	</div>
 	<div class="flex flex-col py-2 items-center bg-pink-lavender rounded-b-lg">
-		<table class="table-auto text-left w-1/2">
+		<table class="table-auto text-left text-lg font-semibold">
 			<tbody>
 				{#if xd.exercise.exerciseType & ExerciseEnum.Weight}
 					<tr>
@@ -44,3 +44,9 @@
 		</table>
 	</div>
 </div>
+
+<style>
+	td {
+		@apply px-1;
+	}
+</style>
