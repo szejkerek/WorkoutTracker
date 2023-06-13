@@ -28,13 +28,7 @@
       exerciseNote = '';
       showMessage=true;
     };
-  
-    function goBack() {
-      let route = $userSessionData === null
-        ? '/start'
-        : `/user/${$userSessionData.id}`;
-      goto(route);
-    }
+
   </script>
   
   {#if ready}
@@ -83,13 +77,6 @@
                 hover:bg-purple-700"
         >
           Save
-        </button>
-        <button
-          on:click={goBack}
-          class="text-white shadow-lg font-bold py-2 px-4 rounded bg-gray-500 ml-4
-                hover:bg-gray-700"
-        >
-          Go Back
         </button>
       </div>
     </form>
