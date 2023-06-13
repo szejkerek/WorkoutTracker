@@ -74,6 +74,11 @@
 			route: '/workout/main'
 		},
 		{
+			icon: workoutIcon,
+			name: 'Categories',
+			route: '/workout/categories'
+		},
+		{
 			icon: bodyIcon,
 			name: 'Body',
 			route: '/analysis/body-profile'
