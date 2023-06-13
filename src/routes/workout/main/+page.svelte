@@ -8,6 +8,7 @@
 	import arrow_right from '$lib/static/icons/arrow-right.svg';
 	import Exercise from '$lib/workout/Exercise.svelte';
 	import type { DoneExercise } from '../../types.js';
+	import { detsStore } from '../../../stores/de.js';
 
 	let ready = false;
 
@@ -18,9 +19,7 @@
 			const response = await fetch('/api/doneExercises');
 			const data: DoneExercise[] = (await response.json()).data;
 
-			doneExercises = data.filter(
-				(de) => de.owner.id === $userSessionData?.id
-			);
+			$detsStore = data;
 			ready = true;
 		}
 	});
@@ -45,7 +44,7 @@
 	}
 
 	function startNewWorkout() {
-		goto('/workout/add-exercise');
+		goto('/workout/categories');
 	}
 
 	function copyPreviousWorkout() {
@@ -53,7 +52,6 @@
 	}
 
 	export let data;
-	let doneExercises: DoneExercise[];
 
 	let todayDate = new Date();
 	let currentDate = todayDate;
@@ -94,38 +92,9 @@
 		</div>
 
 		<div class="flex flex-row items-center">
-			<div class="flex flex-col justify-center mt-6 px-10 w-2/3">
-				<div class="flex flex-row items-center w-full mb-5">
-					<img
-						src={icon_workout}
-						alt="Start new workout icon"
-						class="w-10 h-10 mr-5"
-					/>
-					<button
-						on:click={startNewWorkout}
-						class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
-					>
-						Start new workout
-					</button>
-				</div>
-				<div class="flex flex-row items-center w-full">
-					<img
-						src={icon_calendar}
-						alt="Copy previous workout icon"
-						class="w-10 h-10 mr-5"
-					/>
-					<button
-						on:click={copyPreviousWorkout}
-						class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
-					>
-						Copy previous workout
-					</button>
-				</div>
-			</div>
-
 			<div class="flex flex-col justify-center text-black mt-10 px-10">
-				<h2 class="mb-2 font-bold text-3xl">Previous workout</h2>
-				{#each doneExercises as ex}
+				<h2 class="mb-2 font-bold text-3xl">Current workout</h2>
+				{#each $detsStore as ex}
 					<Exercise xd={ex} />
 				{/each}
 			</div>
