@@ -16,6 +16,8 @@ export const GET: RequestHandler = async (event) => {
         });
         const commentAuthor = await commentAuthorResp.json();
 
+        commentAuthor.id = comment.authorId;
+
         return {
             author: commentAuthor,
             content: comment.content,
@@ -41,5 +43,32 @@ export const GET: RequestHandler = async (event) => {
     return json({
         code: 1,
         data: finalPost,
+    });
+};
+
+export const PATCH: RequestHandler = async (event) => {
+    const postRef = firestore.collection("Posts").doc(event.params.postId);
+    const newPost: Post = await event.request.json();
+    const strippedPost: any = {
+        likedByIds: newPost.likedByIds,
+        content: newPost.content,
+        date: newPost.date,
+        authorId: newPost.author.id,
+        comments: []
+    };
+
+    newPost.comments.forEach(com => {
+        strippedPost.comments.push({
+            authorId: com.author.id,
+            content: com.content,
+            date: com.date
+        });
+    });
+
+    await postRef.update(strippedPost);
+    
+    return json({
+        code: 1,
+        data: strippedPost
     });
 };

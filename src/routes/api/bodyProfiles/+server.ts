@@ -1,5 +1,6 @@
 import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
+import { ResultCodes } from "$lib/enums/errorCodes";
 
 export const GET: RequestHandler = async () => {
     const profilesRef = firestore.collection("BodyProfiles");
@@ -39,12 +40,19 @@ export const GET: RequestHandler = async () => {
 
 export const POST: RequestHandler = async ({ request }) => {
     const newProfile: BodyProfile = await request.json();
+    const strippedProfile = {
+        bodyFatInPercentage: newProfile.bodyFatInPercentage,
+        dateOfMeasurement: newProfile.dateOfMeasurement,
+        muscleWeightInKG: newProfile.muscleWeightInKG,
+        userId: newProfile.owner.id,
+        weightInKG: newProfile.weightInKG
+    }
     const profilesRef = firestore.collection("BodyProfiles");
-    const results = await profilesRef.add(newProfile);
+    const results = await profilesRef.add(strippedProfile);
 
     return json({
-        code: 1,
-        data: results
+        code: ResultCodes.SUCCESS,
+        data: newProfile
     });
 };
 

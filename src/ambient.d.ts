@@ -18,10 +18,10 @@ declare interface DatabaseReturnData {
 }
 
 declare type StaticInfo = {
-    age: Number,
-    gender: 'Male' | 'Female' | 'Other',
     displayName: String,
     avatarPath: String,
+    age: Number,
+    gender: 'Male' | 'Female' | 'Other' | 'Murcin',
     heightInCM: Number
 }
 
@@ -41,6 +41,13 @@ declare type User = {
     email: String,
     staticInfo: StaticInfo,
     followingIds: String[]
+}
+
+declare type NewUser = {
+    username: String,
+    password: String,
+    email: String,
+    gender: 'Male' | 'Female' | 'Other' | 'Murcin'
 }
 
 declare type UserCategory = {

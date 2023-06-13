@@ -42,6 +42,13 @@ declare type DoneExercise = {
     repetitions: Number
 }
 
+declare enum ExerciseEnum {
+    Weight = 1,
+    Reps = 1 << 1,
+    Distance = 1 << 2,
+    Time = 1 << 3
+}
+
 declare type Post = {
     id: String,
     author: User,

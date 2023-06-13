@@ -1,0 +1,143 @@
+<script lang="ts">
+    import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
+    import icon_calendar from "$lib/static/icons/calendar-icon.svg";
+    import icon_workout from "$lib/static/icons/workout-icon.svg";
+    import { userSessionData } from '../../../stores/userSession.js';
+    import arrow_left from "$lib/static/icons/arrow-left.svg";
+    import arrow_right from "$lib/static/icons/arrow-right.svg";
+  
+    let ready = false;
+  
+	onMount(() => {
+		if ($userSessionData === null) {
+			goto('/start');
+		} else {
+			ready = true;
+		}
+	});
+
+    function parseDate() {
+        day   = currentDate.getDate();
+        month = currentDate.getMonth();
+        let parsedDay   = day < 10 ? "0" + day : day;
+        let parsedMonth = month + 1 < 10 ? "0" + (month + 1) : month + 1;
+        parsedDate  = parsedDay + "/" + parsedMonth + "/" + currentDate.getFullYear();
+    }
+
+    function decrementDay() {
+        currentDate.setDate(currentDate.getDate() - 1);
+        parseDate();
+    }
+
+    function incrementDay() {
+        currentDate.setDate(currentDate.getDate() + 1);
+        parseDate();  
+    }
+
+    function startNewWorkout() {
+        goto("/workout/add-exercise");
+    }
+
+    function copyPreviousWorkout() {
+        goto("/calendar");
+    }
+
+    export let data;
+
+    let todayDate = new Date();
+    let currentDate = todayDate;
+    let day;
+    let month;
+    let parsedDate: String;
+    parseDate();
+
+    //to-do
+    //get done exercises with date = currentDate and user = currently logged in user
+    //if any exercises with date = currentDate exist => display them below the date-thingy
+    //else display previous workout and buttons enabling the user to start a new workout or to copy a previously done workout
+    let doneExercises: DoneExercise[];
+
+
+    
+  </script>
+{#if ready}
+  <div class="w-full h-full py-10 text-center bg-gray-300 flex flex-col justify-center items-center">
+   <div class="text-black font-bold text-3xl mb-10">
+    <h1>Hello, {$userSessionData?.staticInfo.displayName}!</h1>
+   </div>
+
+   <div class="bg-eminence rounded-md p-4 w-60 text-white">
+    <p class="font-normal text-xl italic mb-2">
+        "motivational quote"
+    </p>
+    <p class="font-bold text-2xl">
+        ~gym bro
+    </p>
+   </div>
+
+   <div class="flex justify-around items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold">
+    <button on:click={decrementDay}>
+        <img src={arrow_left} alt="Previous day icon" class="w-5 h-5">
+    </button>
+    <p>{parsedDate}</p>
+    <button on:click={incrementDay}>
+        <img src={arrow_right} alt="Next day icon" class="w-5 h-5">
+    </button>
+    </div>
+
+   <div class="flex flex-row items-center">
+        <div class="flex flex-col justify-center mt-6 px-10 w-2/3">
+            <div class="flex flex-row items-center w-full mb-5">
+                <img src={icon_workout} alt="Start new workout icon" class="w-10 h-10 mr-5">
+                <button on:click={startNewWorkout} class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400">
+                Start new workout
+                </button>
+            </div>
+            <div class="flex flex-row items-center w-full">
+                <img src={icon_calendar} alt="Copy previous workout icon" class="w-10 h-10 mr-5">
+                <button on:click={copyPreviousWorkout} class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400">
+                Copy previous workout
+                </button>
+            </div>
+        </div> 
+
+    <div class="flex flex-col justify-center text-black mt-10 px-10 font-bold text-3xl">
+        <h2 class="mb-2">Previous workout</h2>
+        <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
+            <h3>Dumbbell Curl</h3>
+            <ul>
+                <li>14 kg | 15 reps</li>
+                <li>14 kg | 15 reps</li>
+                <li>14 kg | 15 reps</li>
+            </ul>
+        </div>
+        <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
+            <h3>Flat Barbell Bench Press</h3>
+            <ul>
+                <li>90 kg | 8 reps</li>
+                <li>90 kg | 8 reps</li>
+                <li>90 kg | 8 reps</li>
+            </ul>
+        </div>
+        <div class="rounded-md bg-wisteria font-light text-base py-2 m-2">
+            <h3>Lat Pulldown</h3>
+            <ul>
+                <li>55 kg | 10 reps</li>
+                <li>55 kg | 10 reps</li>
+                <li>55 kg | 10 reps</li>
+            </ul>
+        </div>
+   </div>
+  </div>
+</div>
+{/if}
+  <style>
+    ul {
+      @apply list-none;
+    }
+    h3 {
+      @apply text-xl font-medium; 
+    }
+  </style>
+  

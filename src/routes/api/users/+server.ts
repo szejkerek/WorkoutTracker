@@ -5,12 +5,20 @@ import { json } from "@sveltejs/kit";
 export const GET: RequestHandler = async () => {
     const usersRef = firestore.collection("Users");
     const userResults = await usersRef.get();
-    const users: DatabaseReturnData[] = [];
+    const users: User[] = [];
 
-    userResults.forEach(doc => users.push({
-        id: doc.id,
-        data: doc.data()
-    }));
+    userResults.forEach(doc => {
+        const current: any = doc.data();
+
+        users.push({
+            id: doc.id,
+            username: current.username,
+            email: current.email,
+            followingIds: current.followingIds,
+            password: current.password,
+            staticInfo: current.staticInfo
+        });
+    });
 
     return json({
         code: 1,
@@ -19,13 +27,34 @@ export const GET: RequestHandler = async () => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const user: User = await request.json();
+    const user: NewUser = await request.json();
     const usersRef = firestore.collection("Users");
-    const results = await usersRef.add(user);
+    const newUser = {
+        username: user.username,
+        password: user.password,
+        email: user.email,
+        staticInfo: {
+            age: 1,
+            avatarPath: `/avatars/${user.username}`,
+            displayName: user.username,
+            gender: user.gender,
+            heightInCM: 0
+        },
+        followingIds: []
+    };
+    const results = await usersRef.add(newUser);
+    const resultedUser: User = {
+        email: user.email,
+        followingIds: [],
+        id: results.id,
+        password: user.password,
+        staticInfo: newUser.staticInfo,
+        username: user.username
+    };
 
     return json({
         code: 1,
-        data: results
+        data: resultedUser
     });
 };
 

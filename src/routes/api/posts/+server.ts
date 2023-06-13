@@ -18,9 +18,11 @@ export const GET: RequestHandler = async (event) => {
         const author = await authorRef.json();
         const comments = post.data.comments;
 
-        const mappedComments = comments.map(async (comment): Promise<PostComment> => {
+        const mappedComments = comments.map(async (comment: any): Promise<PostComment> => {
             const commentAuthorRef = firestore.collection("Users").doc(comment.authorId);
             const commentAuthor: any = (await commentAuthorRef.get()).data();
+
+            commentAuthor.id = commentAuthorRef.id;
 
             return {
                 author: commentAuthor,
@@ -60,11 +62,26 @@ export const GET: RequestHandler = async (event) => {
 export const POST: RequestHandler = async ({ request }) => {
     const newPost: Post = await request.json();
     const postsRef = firestore.collection("Posts");
-    const postsResults = await postsRef.add(newPost);
+    const strippedPost = {
+        authorId: newPost.author.id,
+        comments: newPost.comments,
+        content: newPost.content,
+        date: newPost.date,
+        likedByIds: newPost.likedByIds
+    };
+    const postsResults = await postsRef.add(strippedPost);
+    const createdPost: Post = {
+        author: newPost.author,
+        comments: newPost.comments,
+        content: newPost.content,
+        date: newPost.date,
+        likedByIds: newPost.likedByIds,
+        id: postsResults.id
+    };
 
     return json({
         code: 1,
-        data: postsResults
+        data: createdPost
     });
 };
 

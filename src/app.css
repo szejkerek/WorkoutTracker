@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-dark-purple {
+    background-color: #210B2C;
+}
+
+.bg-eminence {
+    background-color: #55286F;
+}
+
+.bg-wisteria {
+    background-color: #BC96E6;
+}
+
+.bg-pink-lavender {
+    background-color: #D8B4E2;
+}
+
+.bg-sky-magenta {
+    background-color: #AE759F;
+}
+
+.border-dark-purple {
+    border-color: #210B2C;
+}
+
+.border-eminence {
+    border-color: #55286F;
+}
+
+.border-wisteria {
+    border-color: #BC96E6;
+}
+
+.border-pink-lavender {
+    border-color: #D8B4E2;
+}
+
+.border-sky-magenta {
+    border-color: #AE759F;
+}
+
+.text-dark-purple {
+    color: #210B2C;
+}
+
+.text-eminence {
+    color: #55286F;
+}
+
+.text-wisteria {
+    color: #BC96E6;
+}
+
+.text-pink-lavender {
+    color: #D8B4E2;
+}
+
+.text-sky-magenta {
+    color: #AE759F;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+}
