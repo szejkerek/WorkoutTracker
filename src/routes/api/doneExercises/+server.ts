@@ -1,6 +1,7 @@
 import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
 import type { Exercise } from "../../types";
+import { ResultCodes } from "$lib/enums/errorCodes";
 
 export const GET: RequestHandler = async () => {
     const doneExercisesRef = firestore.collection("DoneExercises");
@@ -63,7 +64,7 @@ export const GET: RequestHandler = async () => {
     });
 
     return json({
-        code: 1,
+        code: ResultCodes.SUCCESS,
         data: danes,
     });
 };
@@ -83,7 +84,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const doneExercisesResults = await doneExercisesRef.add(strippedExercise);
 
     return json({
-        code: 1,
+        code: ResultCodes.SUCCESS,
         data: doneExercisesResults
     });
 };
