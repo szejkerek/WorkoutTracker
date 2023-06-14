@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { userSessionData } from '../../../stores/userSession.js';
 	import { ResultCodes } from '$lib/enums/errorCodes.js';
+	import { sortScuffedDateAsc } from '../../../utilsxd/dateSort.js';
 
 	let ready = false;
 
@@ -13,9 +14,12 @@
 			const response = await fetch(
 				`/api/users/${$userSessionData?.id}/bodyProfiles`
 			);
-			const data = await response.json();
+			const result = await response.json();
+			const data: BodyProfile[] = result.data;
 
-			bodyProfiles = data.data;
+			bodyProfiles = data.sort((lhs, rhs) =>
+				sortScuffedDateAsc(lhs.dateOfMeasurement, rhs.dateOfMeasurement)
+			);
 			ready = true;
 		}
 	});
@@ -137,9 +141,13 @@
 		</form>
 		<div class="flex justify-center py-4">
 			{#if profileAdded}
-				<p class="text-black font-semibold" style="visibility:visible;">Profile added.</p>
+				<p class="text-black font-semibold" style="visibility:visible;">
+					Profile added.
+				</p>
 			{:else}
-				<p class="text-black font-semibold" style="visibility:hidden;">Profile added.</p>
+				<p class="text-black font-semibold" style="visibility:hidden;">
+					Profile added.
+				</p>
 			{/if}
 		</div>
 		<div class="flex justify-center">
@@ -148,7 +156,7 @@
 				class="text-white shadow-lg font-bold py-2 px-4 rounded bg-blue-500 hover:bg-blue-700"
 			>
 				{showHistory ? 'Hide History' : 'Show History'}
-			</button>			
+			</button>
 		</div>
 
 		<div
