@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { userSessionData } from '../../stores/userSession.js';
+	import { parseDate } from '../../utilsxd/dateFormat.js';
 
 	let ready = false;
 
@@ -36,9 +37,7 @@
 		const today = new Date();
 		const post: Post = {
 			author: $userSessionData as User,
-			date: `${today.getDate()}/${
-				today.getMonth() + 1
-			}/${today.getFullYear()}`,
+			date: parseDate(),
 			content: postFormInput,
 			comments: [],
 			likedByIds: [],
@@ -64,7 +63,7 @@
 			</h1>
 			<img src={Dumbbell} alt="dumbbell-icon" width="100" height="100" />
 		</div>
-		<div class="w-1/2">
+		<div class="w-1/2 mb-10">
 			<form
 				on:submit|preventDefault={() => newPost()}
 				class="flex flex-col w-full mt-5 items-end"
