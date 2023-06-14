@@ -249,6 +249,5 @@
 				{/if}
 			{/each}
 		</div>
-		<div class="w-1/6 p-3 border-l-2 border-purple-300" />
 	</div>
 {/if}
