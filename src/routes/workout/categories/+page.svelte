@@ -7,6 +7,8 @@
 	import plusIcon from '$lib/static/icons/plus-icon.svg';
 	import { ResultCodes } from '$lib/enums/errorCodes.js';
 	import { detsStore } from '../../../stores/de.js';
+	import ExerciseCategory from '$lib/workout/ExerciseCategory.svelte';
+	import type { Exercise } from '../../types.js';
 
 	let ready = false;
 
@@ -43,38 +45,10 @@
 		})
 	);
 
-	let selectedCategory: UserCategory | null = null;
-	let selectedExercise: Exercise | null = null;
-	let distance: number = 0;
-	let reps: number = 0;
-	let time: number = 0;
-	let weight: number = 0;
-
-	function selectCategory(category: UserCategory) {
-		selectedCategory = selectedCategory === category ? null : category;
-		selectedExercise = null;
-	}
-
-	function selectExercise(exercise: Exercise) {
-		selectedExercise = selectedExercise === exercise ? null : exercise;
-	}
-
-	async function addExericseToTraining() {
-		if (
-			selectedExercise === null ||
-			(selectedExercise.exerciseType === ExerciseEnum.Distance &&
-				distance === undefined) ||
-			(selectedExercise.exerciseType === ExerciseEnum.Reps &&
-				reps === undefined) ||
-			(selectedExercise.exerciseType === ExerciseEnum.Time &&
-				time === undefined) ||
-			(selectedExercise.exerciseType === ExerciseEnum.Weight &&
-				weight === undefined)
-		) {
-			//cos tam wpysozzz
-			return;
-		}
-
+	async function addExericseToTraining(
+		selectedExercise: Exercise,
+		{ distance, reps, time, weight }: any
+	) {
 		const newExercise: DoneExercise = {
 			date: parseDate(),
 			distanceInMeters: distance,
@@ -105,15 +79,18 @@
 
 {#if ready}
 	<div class="flex flex-col items-center min-h-screen p-10 w-full mx-auto">
-		<div class="flex flex-col justify-center items-center w-full mb-10 border-b border-wisteria">
-			
+		<div
+			class="flex flex-col justify-center items-center w-full mb-10 border-b border-wisteria"
+		>
 			<div class="flex flex-row justify-center w-full">
 				<h1 class="text-5xl text-black flex flex-col justify-center">
 					Exercise categories
 				</h1>
 			</div>
 			<div class="flex flex-row justify-around w-full">
-				<div class="w-full flex flex-row justify-center p-10 items-center">
+				<div
+					class="w-full flex flex-row justify-center p-10 items-center"
+				>
 					<img
 						src={plusIcon}
 						alt="Start new workout icon"
@@ -127,7 +104,9 @@
 					</button>
 				</div>
 
-				<div class="w-full flex flex-row justify-center p-10 items-center">
+				<div
+					class="w-full flex flex-row justify-center p-10 items-center"
+				>
 					<img
 						src={plusIcon}
 						alt="Start new workout icon"
@@ -140,120 +119,19 @@
 						Add new exercise
 					</button>
 				</div>
-				
 			</div>
-
-			
 		</div>
-		<div class="w-2/3 p-3 flex flex-col items-center">
+		<div
+			class="w-2/3 p-3 flex flex-col items-center justify-center overflow-y-scroll scrollbar-hide"
+		>
 			{#each mappedExercises as { category, exercises }}
-				<button
-					class="p-2 my-2 rounded cursor-pointer text-black font-semibold text-2xl"
-					class:selected={selectedCategory === category}
-					on:click={() => selectCategory(category)}
-				>
-					{category.name}
-				</button>
-				{#if selectedCategory === category}
-					<div
-						class="w-1/2 flex flex-col justify-center items-center py-5"
-					>
-						{#each exercises as exercise}
-							<button
-								class="p-2 my-2 rounded cursor-pointer text-black font-serif text-xl"
-								class:font-semibold={selectedExercise ===
-									exercise}
-								on:click={() => selectExercise(exercise)}
-							>
-								{exercise.displayName}
-							</button>
-
-							{#if selectedExercise && selectedExercise === exercise}
-								<div
-									class="w-full flex flex-col justify-center items-center py-5"
-								>
-									{#if exercise.exerciseType & ExerciseEnum.Weight}
-										<div
-											class="flex flex-col justify-start"
-										>
-											<div
-												class="font-semibold text-lg text-eminence"
-											>
-												Weight (kg)
-											</div>
-											<input
-												placeholder="Weight"
-												bind:value={weight}
-												type="number"
-												class="p-2 mb-2 rounded-md"
-												min="0"
-											/>
-										</div>
-									{/if}
-									{#if exercise.exerciseType & ExerciseEnum.Distance}
-										<div
-											class="flex flex-col justify-start"
-										>
-											<div
-												class="font-semibold text-lg text-eminence"
-											>
-												Distance (m)
-											</div>
-											<input
-												placeholder="Distance"
-												bind:value={distance}
-												type="number"
-												class="p-2 mb-2 rounded-md"
-												min="0"
-											/>
-										</div>
-									{/if}
-									{#if exercise.exerciseType & ExerciseEnum.Reps}
-										<div
-											class="flex flex-col justify-start"
-										>
-											<div
-												class="font-semibold text-lg text-eminence"
-											>
-												Repetitions
-											</div>
-											<input
-												placeholder="Repetitions"
-												bind:value={reps}
-												type="number"
-												class="p-2 mb-2 rounded-md"
-												min="0"
-											/>
-										</div>
-									{/if}
-									{#if exercise.exerciseType & ExerciseEnum.Time}
-										<div
-											class="flex flex-col justify-start"
-										>
-											<div
-												class="font-semibold text-lg text-eminence"
-											>
-												Time (s)
-											</div>
-											<input
-												placeholder="Time"
-												bind:value={time}
-												type="number"
-												class="p-2 mb-2 rounded-md"
-												min="0"
-											/>
-										</div>
-									{/if}
-									<button
-										class="bg-purple-500 text-white p-2 rounded-md"
-										on:click={() => addExericseToTraining()}
-										>Add Exercise</button
-									>
-								</div>
-							{/if}
-						{/each}
-					</div>
-				{/if}
+				<div class="w-full flex flex-col justify-center items-center">
+					<ExerciseCategory
+						{category}
+						{exercises}
+						onExerciseAdd={addExericseToTraining}
+					/>
+				</div>
 			{/each}
 		</div>
 	</div>
