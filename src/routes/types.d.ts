@@ -1,3 +1,5 @@
+import type { ExerciseEnum } from "$lib/enums/exerTypes"
+
 declare enum ResultCodes {
     SUCCESS,
     DB_NO_RESPONSE,
@@ -12,7 +14,7 @@ declare type ApiResponse = {
 declare type UserCategory = {
     id: String,
     name: String,
-    userId: String,
+    owner: User
     note: String
 }
 
@@ -20,7 +22,7 @@ declare type Exercise = {
     id: String,
     category: UserCategory,
     displayName: String,
-    exerciseType: Number,
+    exerciseType: ExerciseEnum,
     note: String
 }
 
@@ -40,13 +42,6 @@ declare type DoneExercise = {
     timeInSeconds: Number,
     weightInKG: Number,
     repetitions: Number
-}
-
-declare enum ExerciseEnum {
-    Weight = 1,
-    Reps = 1 << 1,
-    Distance = 1 << 2,
-    Time = 1 << 3
 }
 
 declare type Post = {
