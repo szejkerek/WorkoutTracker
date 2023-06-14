@@ -4,8 +4,10 @@ export const secondsToTimeFormat = (seconds: number): string => {
     const remainingSeconds = seconds % 60;
 
     const formattedHours = hours > 0 ? `${hours}h ` : '';
-    const formattedMinutes = minutes > 0 ? `${minutes}m ` : '';
+    const formattedMinutes = minutes > 0 || hours > 0 ? `${minutes}m ` : '';
     const formattedSeconds = `${remainingSeconds}s`;
+
+    
 
     return `${formattedHours}${formattedMinutes}${formattedSeconds}`;
 }
