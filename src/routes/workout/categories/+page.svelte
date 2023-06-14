@@ -113,7 +113,7 @@
 					class="w-10 h-10 mr-5"
 				/>
 				<button
-					on:click={() => goto('/dodajnowecosrałt')}
+					on:click={() => goto('/workout/add-own-category')}
 					class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
 				>
 					Add new category
@@ -131,7 +131,7 @@
 					class="w-10 h-10 mr-5"
 				/>
 				<button
-					on:click={() => goto('/dodajnowecosrałt')}
+					on:click={() => goto('/workout/add-own-exercise')}
 					class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
 				>
 					Add new exercise

@@ -44,8 +44,11 @@
 	};
 
 	function goBack() {
-		let route = $userSessionData === null ? '/start' : `/workout/main`;
-		goto(route);
+		if (history.length > 1) {
+			history.back();
+		} else {
+			goto('/start');
+		}
 	}
 </script>
 

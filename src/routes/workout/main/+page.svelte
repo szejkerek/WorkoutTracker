@@ -95,7 +95,7 @@
 			<div class="flex flex-col justify-center text-black mt-10 px-10">
 				<h2 class="mb-2 font-bold text-3xl">Current workout</h2>
 				{#each $detsStore as ex}
-					<Exercise xd={ex} />
+					<DoneExerciseComp xd={ex} />
 				{/each}
 			</div>
 		</div>
