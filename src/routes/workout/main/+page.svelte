@@ -70,34 +70,38 @@
 	<div
 		class="w-full h-full py-10 text-center bg-gray-300 flex flex-col justify-center items-center"
 	>
-		<div class="text-black font-bold text-3xl mb-10">
-			<h1>Hello, {$userSessionData?.staticInfo.displayName}!</h1>
-		</div>
+		<div class="w-full h-1/3 flex flex-col justify-center items-center">
+			<div class="text-black font-bold text-3xl mb-10">
+				<h1>Hello, {$userSessionData?.staticInfo.displayName}!</h1>
+			</div>
 
-		<div class="bg-eminence rounded-md p-4 w-60 text-white">
-			<p class="font-normal text-xl italic mb-2">"motivational quote"</p>
-			<p class="font-bold text-2xl">~gym bro</p>
-		</div>
+			<div class="bg-eminence rounded-md p-4 w-60 text-white">
+				<p class="font-normal text-xl italic mb-2">"motivational quote"</p>
+				<p class="font-bold text-2xl">~gym bro</p>
+			</div>
 
-		<div
-			class="flex justify-around items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold py-2"
-		>
-			<button on:click={decrementDay}>
-				<img src={arrow_left} alt="Previous day icon" class="w-5 h-5" />
-			</button>
-			<p>{parsedDate}</p>
-			<button on:click={incrementDay}>
-				<img src={arrow_right} alt="Next day icon" class="w-5 h-5" />
-			</button>
-		</div>
-
-		<div class="flex flex-row items-center">
-			<div class="flex flex-col justify-center text-black mt-10 px-10">
-				<h2 class="mb-2 font-bold text-3xl">Current workout</h2>
-				{#each $detsStore as ex}
-					<DoneExerciseComp xd={ex} />
-				{/each}
+			<div
+				class="flex justify-around items-center flex-row w-96 bg-wisteria my-10 rounded-md text-black font-semibold py-2"
+			>
+				<button on:click={decrementDay}>
+					<img src={arrow_left} alt="Previous day icon" class="w-5 h-5" />
+				</button>
+				<p class="text-xl">{parsedDate}</p>
+				<button on:click={incrementDay}>
+					<img src={arrow_right} alt="Next day icon" class="w-5 h-5" />
+				</button>
 			</div>
 		</div>
+		<h2 class="mb-2 font-bold text-3xl text-black">Current workout</h2>
+			
+				<div class="flex flex-row w-full justify-center mt-10 px-10 flex-wrap overflow-y-scroll scrollbar-hide h-fit">
+					
+					{#each $detsStore as ex}
+						<div class="w-1/3 px-10 py-5 ">
+							<DoneExerciseComp xd={ex} />
+						</div>
+					{/each}
+				</div>
+			
 	</div>
 {/if}
