@@ -6,8 +6,8 @@
 	import { userSessionData } from '../../../stores/userSession.js';
 	import arrow_left from '$lib/static/icons/arrow-left.svg';
 	import arrow_right from '$lib/static/icons/arrow-right.svg';
-	import Exercise from '$lib/workout/Exercise.svelte';
 	import type { DoneExercise } from '../../types.js';
+	import DoneExerciseComp from '$lib/workout/DoneExerciseComp.svelte';
 
 	let ready = false;
 
@@ -126,7 +126,7 @@
 			<div class="flex flex-col justify-center text-black mt-10 px-10">
 				<h2 class="mb-2 font-bold text-3xl">Previous workout</h2>
 				{#each doneExercises as ex}
-					<Exercise xd={ex} />
+					<DoneExerciseComp xd={ex} />
 				{/each}
 			</div>
 		</div>
