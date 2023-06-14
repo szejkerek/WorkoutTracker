@@ -86,7 +86,7 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async (event) => {
-    const uid = await event.request.json();
+    const {uid} = await event.request.json();
     const postsRef = firestore.collection("Posts").doc(uid);
     await postsRef.delete();
 
