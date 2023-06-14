@@ -5,6 +5,7 @@
 	import trashIcon from '$lib/static/icons/trash-icon.svg';
 	import heartIcon from '$lib/static/icons/heart-icon.svg';
 	import type { Post, PostComment } from '../../routes/types';
+	import { parseDate } from '../../utilsxd/dateFormat';
 
 	export let postData: Post;
 	let commentsNumber: number = 3;
@@ -19,9 +20,7 @@
 		const today = new Date();
 		const newComment: PostComment = {
 			author: $userSessionData as User,
-			date: `${today.getDate()}/${
-				today.getMonth() + 1
-			}/${today.getFullYear()}`,
+			date: parseDate(),
 			content: commentFormInput
 		};
 
