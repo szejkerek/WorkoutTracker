@@ -9,6 +9,7 @@
 	import type { DoneExercise } from '../../types.js';
 	import DoneExerciseComp from '$lib/workout/DoneExerciseComp.svelte';
 	import { detsStore } from '../../../stores/de.js';
+	import plusIcon from '$lib/static/icons/plus-icon.svg';
 
 	let ready = false;
 
@@ -91,10 +92,26 @@
 					<img src={arrow_right} alt="Next day icon" class="w-5 h-5" />
 				</button>
 			</div>
+			<h2 class="mb-6 font-bold text-3xl text-black">Current workout</h2>
+
+			<div class="flex flex-row justify-between mb-16 items-center">
+					<img
+					src={plusIcon}
+					alt="Start new workout icon"
+					class="w-10 h-10 mr-5"
+					/>
+					<button
+						on:click={() => goto('/workout/categories')}
+						class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-xl hover:bg-gray-400"
+					>
+						Add new exercise
+					</button>
+			</div>
+
 		</div>
-		<h2 class="mb-2 font-bold text-3xl text-black">Current workout</h2>
+		
 			
-				<div class="flex flex-row w-full justify-center mt-10 px-10 flex-wrap overflow-y-scroll scrollbar-hide h-fit">
+				<div class="flex flex-row w-full justify-center mt-10 px-10 flex-wrap overflow-y-scroll scrollbar-hide h-fit border-t border-wisteria ">
 					
 					{#each $detsStore as ex}
 						<div class="w-1/3 px-10 py-5 ">
