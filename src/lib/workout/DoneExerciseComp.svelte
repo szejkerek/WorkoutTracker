@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ExerciseEnum } from '$lib/enums/exerTypes';
+	import { secondsToTimeFormat } from '../../utilsxd/timeFormat';
 
 	export let xd: DoneExercise;
 </script>
@@ -37,7 +38,7 @@
 				{#if xd.exercise.exerciseType & ExerciseEnum.Time}
 					<tr>
 						<td>Time:</td>
-						<td>{xd.timeInSeconds}s</td>
+						<td>{secondsToTimeFormat(xd.timeInSeconds)}</td>
 					</tr>
 				{/if}
 			</tbody>
