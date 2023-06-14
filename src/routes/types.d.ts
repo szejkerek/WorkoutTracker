@@ -14,7 +14,7 @@ declare type ApiResponse = {
 declare type UserCategory = {
     id: String,
     name: String,
-    userId: String,
+    owner: User
     note: String
 }
 

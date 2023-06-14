@@ -1,4 +1,5 @@
 export enum ExerciseEnum {
+    None = 0,
     Weight = 1,
     Reps = 1 << 1,
     Distance = 1 << 2,

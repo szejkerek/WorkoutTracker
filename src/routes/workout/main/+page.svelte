@@ -6,8 +6,8 @@
 	import { userSessionData } from '../../../stores/userSession.js';
 	import arrow_left from '$lib/static/icons/arrow-left.svg';
 	import arrow_right from '$lib/static/icons/arrow-right.svg';
-	import Exercise from '$lib/workout/Exercise.svelte';
 	import type { DoneExercise } from '../../types.js';
+	import DoneExerciseComp from '$lib/workout/DoneExerciseComp.svelte';
 	import { detsStore } from '../../../stores/de.js';
 
 	let ready = false;

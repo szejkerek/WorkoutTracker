@@ -1,5 +1,6 @@
 import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
+import { ResultCodes } from "$lib/enums/errorCodes";
 
 export const GET: RequestHandler = async () => {
     const categoriesRef = firestore.collection("UserCategories");
@@ -13,7 +14,10 @@ export const GET: RequestHandler = async () => {
 
     const mappedCategories = categories.map(async (cat): Promise<UserCategory> => {
         const userRef = firestore.collection("Users").doc(cat.data.userId);
-        const user: any = (await userRef.get()).data();
+        const userRes: any = await userRef.get();
+        const user = userRes.data();
+
+        user.id = userRes.id;
 
         return {
             id: cat.id,
@@ -30,19 +34,31 @@ export const GET: RequestHandler = async () => {
     });
 
     return json({
-        code: 1,
+        code: ResultCodes.SUCCESS,
         data: categs
     });
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-    const newCategory: APIUserCategory = await request.json();
+    const newCategory: UserCategory = await request.json();
+    const strippedCat = {
+        name: newCategory.name,
+        userId: newCategory.owner.id,
+        note: newCategory.note
+    };
     const categoriesRef = firestore.collection("UserCategories");
-    const results = await categoriesRef.add(newCategory);
+    const result = await categoriesRef.add(strippedCat);
+
+    if(result === undefined) {
+        return json({
+            code: ResultCodes.INVALID_REQUEST_PARAMS,
+            data: null
+        });
+    }
 
     return json({
-        code: 1,
-        data: results
+        code: ResultCodes.SUCCESS,
+        data: newCategory
     });
 };
 
