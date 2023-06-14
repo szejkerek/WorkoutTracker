@@ -105,38 +105,45 @@
 
 {#if ready}
 	<div class="flex flex-col items-center min-h-screen p-10 w-full mx-auto">
-		<div class="flex flex-row justify-between w-full mb-10">
-			<div class="w-1/3 flex flex-row justify-center p-10 items-center">
-				<img
-					src={plusIcon}
-					alt="Start new workout icon"
-					class="w-10 h-10 mr-5"
-				/>
-				<button
-					on:click={() => goto('/workout/add-own-category')}
-					class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
-				>
-					Add new category
-				</button>
-			</div>
-			<div class="flex flex-row justify-center w-1/3">
+		<div class="flex flex-col justify-center items-center w-full mb-10 border-b border-wisteria">
+			
+			<div class="flex flex-row justify-center w-full">
 				<h1 class="text-5xl text-black flex flex-col justify-center">
 					Exercise categories
 				</h1>
 			</div>
-			<div class="w-1/3 flex flex-row justify-center p-10 items-center">
-				<img
-					src={plusIcon}
-					alt="Start new workout icon"
-					class="w-10 h-10 mr-5"
-				/>
-				<button
-					on:click={() => goto('/workout/add-own-exercise')}
-					class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
-				>
-					Add new exercise
-				</button>
+			<div class="flex flex-row justify-around w-full">
+				<div class="w-full flex flex-row justify-center p-10 items-center">
+					<img
+						src={plusIcon}
+						alt="Start new workout icon"
+						class="w-10 h-10 mr-5"
+					/>
+					<button
+						on:click={() => goto('/workout/add-own-category')}
+						class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
+					>
+						Add new category
+					</button>
+				</div>
+
+				<div class="w-full flex flex-row justify-center p-10 items-center">
+					<img
+						src={plusIcon}
+						alt="Start new workout icon"
+						class="w-10 h-10 mr-5"
+					/>
+					<button
+						on:click={() => goto('/workout/add-own-exercise')}
+						class="font-semibold py-2 px-4 rounded bg-gray-300 text-black text-lg hover:bg-gray-400"
+					>
+						Add new exercise
+					</button>
+				</div>
+				
 			</div>
+
+			
 		</div>
 		<div class="w-2/3 p-3 flex flex-col items-center">
 			{#each mappedExercises as { category, exercises }}
