@@ -54,7 +54,7 @@
 		{
 			icon: settingsIcon,
 			name: 'Settings',
-			route: '/feed'
+			route: '/editprofile'
 		},
 		{
 			icon: reportIcon,
