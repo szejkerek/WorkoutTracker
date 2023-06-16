@@ -121,7 +121,7 @@
 	</div>
 	<div class="p-5 bg-pink-lavender border-t-2 border-eminence">
 		{#each postData.comments.slice(0, commentsNumber) as comment}
-			<PostCommentComp commentData={comment} />
+			<PostCommentComp postData = {postData} commentData={comment} />
 		{/each}
 	</div>
 	<div class="flex flex-row w-full bg-pink-lavender px-5">
