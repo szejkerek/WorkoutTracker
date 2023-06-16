@@ -26,6 +26,92 @@
 			ready = true;
 		}
 	});
+	const motivationalQuotes: { content: string; author: string }[] = [
+		{
+			content:
+				'Sukces to suma małych wysiłków, powtarzanych dzień po dniu. 💪🌟',
+			author: getRandomAuthor()
+		},
+		{
+			content: 'Twoje ciało osiągnie to, na co umysł jest gotowy. 🏋️‍♀️💡',
+			author: getRandomAuthor()
+		},
+		{
+			content:
+				'Każdy trening to krok w stronę lepszej wersji siebie. 🚀🔥',
+			author: getRandomAuthor()
+		},
+		{
+			content: 'Ból jest chwilowy, ale zwycięstwo jest wieczne. 🏆😤',
+			author: getRandomAuthor()
+		},
+		{
+			content:
+				'Nie odmawiaj sobie tego, czego pragniesz najbardziej. 🌟💪',
+			author: getRandomAuthor()
+		},
+		{
+			content:
+				'Najtrudniejszy trening jest ten, w którym nie masz ochoty iść. 💦😅',
+			author: getRandomAuthor()
+		},
+		{
+			content:
+				"Głowa mówi 'nie chce mi się', ale serce woła 'muszę to zrobić'. ❤️🔥",
+			author: getRandomAuthor()
+		},
+		{
+			content: 'Zmień swoje myślenie, a zmienisz swoje ciało. 🧠💪',
+			author: getRandomAuthor()
+		},
+		{
+			content: 'Najlepszy trening to ten, który nie zrobiłbyś sam. 👥💪',
+			author: getRandomAuthor()
+		},
+		{
+			content:
+				'Wybierz dyscyplinę nad regułami, a osiągniesz wyniki. 🏋️‍♀️📈',
+			author: getRandomAuthor()
+		}
+	];
+
+	function getRandomAuthor(): string {
+		const animals: string[] = [
+			'Lew',
+			'Orzeł',
+			'Tygrys',
+			'Puma',
+			'Pantera',
+			'Fretka',
+			'Wąż',
+			'Sokół',
+			'Kondor',
+			'Owca'
+		];
+		const adjectives: string[] = [
+			'Mocny',
+			'Szybki',
+			'Zwinny',
+			'Nieustraszony',
+			'Agresywny',
+			'Dzielny',
+			'Szarżujący',
+			'Zuchwały',
+			'Prężny',
+			'Dumny'
+		];
+
+		const randomAnimal: string =
+			animals[Math.floor(Math.random() * animals.length)];
+		const randomAdjective: string =
+			adjectives[Math.floor(Math.random() * adjectives.length)];
+
+		return `${randomAdjective} ${randomAnimal}`;
+	}
+
+	let quote = motivationalQuotes.at(
+		Math.floor(Math.random() * motivationalQuotes.length)
+	);
 
 	const updateDayExercises = () => {
 		currentExercises = $detsStore.filter((ex) => ex.date == parsedDate);
@@ -79,11 +165,11 @@
 				<h1>Hello, {$userSessionData?.staticInfo.displayName}!</h1>
 			</div>
 
-			<div class="bg-eminence rounded-md p-4 w-60 text-white">
+			<div class="bg-eminence rounded-md p-4 w-1/2 text-white">
 				<p class="font-normal text-xl italic mb-2">
-					"motivational quote"
+					"{quote?.content}"
 				</p>
-				<p class="font-bold text-2xl">~gym bro</p>
+				<p class="font-bold text-2xl">~{quote?.author}</p>
 			</div>
 
 			<div
