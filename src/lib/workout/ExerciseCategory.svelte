@@ -35,6 +35,7 @@
 	};
 
 	const deleteCategory = async () => {
+		return;
 		exercises.forEach(
 			async (ex) =>
 				await fetch('/api/exercises', {
