@@ -109,9 +109,24 @@
 		return `${randomAdjective} ${randomAnimal}`;
 	}
 
-	let quote = motivationalQuotes.at(
+	let motivationalQuote = motivationalQuotes.at(
 		Math.floor(Math.random() * motivationalQuotes.length)
 	);
+
+	const pirates: string[] = [
+		'Wzmocnij swoje mięśnie jak stalowe liny na żaglu! 💪⚓️',
+		'Nie bądź leniwym żółwem! Podejmij wyzwanie i trenuj jak prawdziwy pirat! 🐢💥',
+		'Zamień swoje ciało w dobrze wytrenowany okręt, gotowy do podboju! ⛵️🔥',
+		'Odpłyń od brzegów swojej wygody i zdobądź wyspę wytrzymałości! 🏝️💪',
+		'Każdy trening to krok w stronę odkrywania swoich wewnętrznych skarbów! 💎🏋️‍♂️',
+		'Wbij kotwicę w teren treningowy i pokonaj wszystkie przeszkody jak niezwyciężony pirat! ⚓️💥',
+		'Podnieś żagle swojej determinacji i płyń ku zdrowiu i siłowej potędze! ⛵️🌊',
+		'Niech twój trening płonie jak płomień w sercu pirata! 🔥⚔️',
+		'Wygrywaj treningowe bitwy i zdobywaj swoje fitnessowe złoto każdego dnia! 💪💰',
+		'Trenuj jak pirat i stwórz własną legendę siły i wytrzymałości! 🏴‍☠️💪'
+	];
+
+	let pirat = pirates.at(Math.floor(Math.random() * pirates.length));
 
 	const updateDayExercises = () => {
 		currentExercises = $detsStore.filter((ex) => ex.date == parsedDate);
@@ -137,15 +152,6 @@
 		parseDate();
 		updateDayExercises();
 	}
-
-	function startNewWorkout() {
-		goto('/workout/categories');
-	}
-
-	function copyPreviousWorkout() {
-		goto('/calendar');
-	}
-
 	let currentExercises: DoneExercise[] = [];
 	let currentDate: Date = new Date();
 	let day;
@@ -167,9 +173,9 @@
 
 			<div class="bg-eminence rounded-md p-4 w-1/2 text-white">
 				<p class="font-normal text-xl italic mb-2">
-					"{quote?.content}"
+					"{motivationalQuote?.content}"
 				</p>
-				<p class="font-bold text-2xl">~{quote?.author}</p>
+				<p class="font-bold text-2xl">~{motivationalQuote?.author}</p>
 			</div>
 
 			<div
@@ -211,11 +217,19 @@
 		<div
 			class="flex flex-row w-full justify-center flex-wrap overflow-y-scroll scrollbar-hide"
 		>
-			{#each currentExercises as ex}
-				<div class="xl:w-1/3 lg:w-1/2 w-full px-10 py-5">
-					<DoneExerciseComp xd={ex} />
+			{#if currentExercises.length !== 0}
+				{#each currentExercises as ex}
+					<div class="xl:w-1/3 lg:w-1/2 w-full px-10 py-5">
+						<DoneExerciseComp xd={ex} />
+					</div>
+				{/each}
+			{:else}
+				<div class="w-full px-10 py-5 mt-24">
+					<p class="text-2xl text-primary tracking-wider">
+						{pirat}
+					</p>
 				</div>
-			{/each}
+			{/if}
 		</div>
 	</div>
 {/if}
