@@ -67,6 +67,10 @@ export const POST: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async (event) => {
     const {uid} = await event.request.json();
     const exercisesRef = firestore.collection("Exercises").doc(uid);
+    const deRef = firestore.collection("DoneExercises").where("exerciseId", "==", `${uid}`);
+    const des = await deRef.get();
+    
+    des.forEach(async (de) => await de.ref.delete());
     await exercisesRef.delete();
 
     return json({
