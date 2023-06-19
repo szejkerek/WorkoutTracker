@@ -45,10 +45,20 @@
 		})
 	);
 
-	async function addExericseToTraining(
+	let invalidMetricData = false;
+	let addedExercise = false;
+	async function addExerciseToTraining(
 		selectedExercise: Exercise,
 		{ distance, reps, time, weight }: any
 	) {
+		addedExercise = false;
+		invalidMetricData =
+			distance === 0 && reps === 0 && time === 0 && weight === 0;
+
+		if (invalidMetricData) {
+			return;
+		}
+
 		const newExercise: DoneExercise = {
 			date: parseDate(),
 			distanceInMeters: distance,
@@ -74,6 +84,8 @@
 		reps = 0;
 		time = 0;
 		weight = 0;
+
+		addedExercise = true;
 	}
 </script>
 
@@ -129,8 +141,18 @@
 					<ExerciseCategory
 						{category}
 						{exercises}
-						onExerciseAdd={addExericseToTraining}
+						onExerciseAdd={addExerciseToTraining}
 					/>
+					{#if invalidMetricData}
+						<p class="text-red-500 font-semibold">
+							Please fill the metrics correctly.
+						</p>
+					{/if}
+					{#if addedExercise}
+						<p class="text-black font-semibold">
+							Exercise added to current workout.
+						</p>
+					{/if}
 				</div>
 			{/each}
 		</div>
