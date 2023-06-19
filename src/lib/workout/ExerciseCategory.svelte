@@ -35,15 +35,6 @@
 	};
 
 	const deleteCategory = async () => {
-		return;
-		exercises.forEach(
-			async (ex) =>
-				await fetch('/api/exercises', {
-					method: 'DELETE',
-					body: JSON.stringify({ uid: ex.id })
-				})
-		);
-
 		await fetch('/api/exerciseCategories', {
 			method: 'DELETE',
 			body: JSON.stringify({ uid: category.id })
