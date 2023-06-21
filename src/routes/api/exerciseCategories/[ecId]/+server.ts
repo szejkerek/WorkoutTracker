@@ -5,7 +5,10 @@ export const GET: RequestHandler = async (event) => {
     const categoryRef = firestore.collection("UserCategories").doc(event.params.ecId);
     const category: any = (await categoryRef.get()).data();
     const userRef = firestore.collection("Users").doc(category.userId);
-    const user: any = (await userRef.get()).data();
+    const userRes: any = await userRef.get();
+    const user = userRes.data();
+
+    user.id = userRes.id;
     
     const categ: UserCategory = {
         id: categoryRef.id,

@@ -27,7 +27,11 @@
 	let exercisesOfCat: Map<String, Exercise[]> = new Map<String, Exercise[]>();
 
 	incExercises
-		// .filter((ex) => ex.category.owner.id === $userSessionData?.id)
+		.filter((ex) => {
+			console.log(ex);
+			console.log($userSessionData);
+			return ex.category.owner.id === $userSessionData?.id;
+		})
 		.forEach((ex) => {
 			if (exercisesOfCat.get(ex.category.id) === undefined) {
 				exercisesOfCat.set(ex.category.id, []);
