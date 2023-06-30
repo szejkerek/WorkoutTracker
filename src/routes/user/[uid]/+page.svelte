@@ -2,9 +2,15 @@
 	import PostComp from '$lib/posts/PostComp.svelte';
 	import ProfileDefault from '$lib/static/ProfileDefault.svg';
 	import { userSessionData } from '../../../stores/userSession';
+	import type { Post } from '../../types';
 
 	export let data;
 	let user: User = data.userData;
+	let userAvatar: string = user.staticInfo.avatarPath.startsWith(
+		'data:image/'
+	)
+		? user.staticInfo.avatarPath.toString()
+		: ProfileDefault.toString();
 	let posts: Post[] = data.postsData;
 
 	const follow = async () => {
@@ -42,12 +48,11 @@
 <div class="flex flex-row justify-center min-h-screen p-10">
 	<div class="w-full p-3 flex flex-col items-center">
 		<div class="w-full flex flex-row border-b-2 border-purple-300 pb-10">
-			<img
-				src={ProfileDefault}
-				alt="default-profile-pic"
-				width="300"
-				height="300"
-			/>
+			<div class="w-1/4 avatar">
+				<div class="w-full rounded-full">
+					<img src={userAvatar} alt="default-profile-pic" />
+				</div>
+			</div>
 			<div
 				class="w-full text-2xl text-black ml-10 py-10 flex flex-col justify-around"
 			>

@@ -6,6 +6,10 @@
     background-color: #210B2C;
 }
 
+.bg-mrcn-purple {
+    background-color: #391e46
+}
+
 .bg-eminence {
     background-color: #55286F;
 }
@@ -67,6 +71,79 @@
 }
 
 .scrollbar-hide {
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+}
+
+.hover\:bg-dark-purple:hover {
+    background-color: #210B2C;
+}
+
+.hover\:bg-mrcn-purple:hover {
+    background-color: #391e46
+}
+
+.hover\:bg-eminence:hover {
+    background-color: #55286F;
+}
+
+.hover\:bg-wisteria:hover {
+    background-color: #BC96E6;
+}
+
+.hover\:bg-pink-lavender:hover {
+    background-color: #D8B4E2;
+}
+
+.hover\:bg-sky-magenta:hover {
+    background-color: #AE759F;
+}
+
+.hover\:border-dark-purple:hover {
+    border-color: #210B2C;
+}
+
+.hover\:border-eminence:hover {
+    border-color: #55286F;
+}
+
+.hover\:border-wisteria:hover {
+    border-color: #BC96E6;
+}
+
+.hover\:border-pink-lavender:hover {
+    border-color: #D8B4E2;
+}
+
+.hover\:border-sky-magenta:hover {
+    border-color: #AE759F;
+}
+
+.hover\:text-dark-purple:hover {
+    color: #210B2C;
+}
+
+.hover\:text-eminence:hover {
+    color: #55286F;
+}
+
+.hover\:text-wisteria:hover {
+    color: #BC96E6;
+}
+
+.hover\:text-pink-lavender:hover {
+    color: #D8B4E2;
+}
+
+.hover\:text-sky-magenta:hover {
+    color: #AE759F;
+}
+
+.hover\:scrollbar-hide::-webkit-scrollbar:hover {
+    display: none;
+}
+
+.hover\:scrollbar-hide:hover {
     -ms-overflow-style: none;  
     scrollbar-width: none; 
 }

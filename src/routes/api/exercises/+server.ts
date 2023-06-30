@@ -1,5 +1,7 @@
 import { firestore } from "$lib/firebase/fb.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
+import type { Exercise } from "../../types";
+import { ResultCodes } from "$lib/enums/errorCodes";
 
 export const GET: RequestHandler = async (event) => {
     const exercisesRef = firestore.collection("Exercises");
@@ -40,19 +42,35 @@ export const GET: RequestHandler = async (event) => {
 
 export const POST: RequestHandler = async ({ request }) => {
     const newExercise: Exercise = await request.json();
+    const strippedExer = {
+        categoryId: newExercise.category.id,
+        displayName: newExercise.displayName,
+        exerciseType: newExercise.exerciseType,
+        note: newExercise.note
+    };
     const exercisesRef = firestore.collection("Exercises");
-    const results = await exercisesRef.add(newExercise);
+    const result = await exercisesRef.add(strippedExer);
+
+    if(result === undefined) {
+        return json({
+            code: ResultCodes.ERROR,
+            data: null
+        });
+    }
 
     return json({
-        code: 1,
-        data: results
+        code: ResultCodes.SUCCESS,
+        data: newExercise
     });
 };
 
-
 export const DELETE: RequestHandler = async (event) => {
-    const uid = await event.request.json();
+    const {uid} = await event.request.json();
     const exercisesRef = firestore.collection("Exercises").doc(uid);
+    const deRef = firestore.collection("DoneExercises").where("exerciseId", "==", `${uid}`);
+    const des = await deRef.get();
+    
+    des.forEach(async (de) => await de.ref.delete());
     await exercisesRef.delete();
 
     return json({

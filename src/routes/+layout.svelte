@@ -14,6 +14,7 @@
 	import workoutIcon from '$lib/static/icons/workout-icon.svg';
 	import logoutIcon from '$lib/static/icons/logout-icon.svg';
 	import { userSessionData } from '../stores/userSession';
+	import listIcon from '$lib/static/icons/list-icon.svg';
 
 	const routesWithNoSidemenu: (string | null)[] = [
 		'/login',
@@ -54,7 +55,7 @@
 		{
 			icon: settingsIcon,
 			name: 'Settings',
-			route: '/feed'
+			route: '/editprofile'
 		},
 		{
 			icon: reportIcon,
@@ -72,6 +73,11 @@
 			icon: workoutIcon,
 			name: 'Workout',
 			route: '/workout/main'
+		},
+		{
+			icon: listIcon,
+			name: 'Categories',
+			route: '/workout/categories'
 		},
 		{
 			icon: bodyIcon,
